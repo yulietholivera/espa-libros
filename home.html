@@ -9,7 +9,7 @@
     <style type="text/tailwindcss">
         @theme {
             --color-regal-espalibros: #CB9176; 
-            --color-regal2-espalibros: #EFEFEF;
+            --color-regal2-espalibros: #EAEAEA;
             --color-regal3-espalibros: #D9D9D9;
         
       }
@@ -17,8 +17,41 @@
 </head>
 
 <body class="bg-regal2-espalibros">
-    <div class="bg-white">
+    <div class="">
         <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-4xl lg:px-8">
+
+            <div class="p-2 border-1 border-gray-500 bg-white">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <rect width="48" height="48" fill="url(#pattern0_4_9)" />
+                    <defs>
+                        <pattern id="pattern0_4_9" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use xlink:href="#image0_4_9" transform="scale(0.0208333)" />
+                        </pattern>
+                        <image id="image0_4_9" width="48" height="48" preserveAspectRatio="none"
+                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB/klEQVR4Ae3BoWtUARwA4O89XzjkwoELFwwLC4oHlqEDjQMVB1Oc/8FA7RZB0zS7YBGjAweeIMyBwWAwGC4oKE5QMFxYWLjwwoULHvzCMaaww7e7d3LfZ9Il9qtjBTOK00YTHUcgMbCIl6gpXhvX0VKwRKjjG2rYRktxGriBXziNrgJlwgpq2MaS4n3EeczjgwKlQl346GjsCHMKlgo9ITNhUhMuFXpC5mhUhVzBUqEl3MK8Yi1hGT20FCwx8BrLwi66/l0NNeER7itYYiDDQ6zihOL8xDqeOAKJP6uj4t910DE1NTX1N4mDGpgxWl3soGNIiYFZvMCC8cjxAOuGkAkVbKGBXXw3Whku4DHaaDqkTFhBA1+xgNzoreIZ7qLpkFLhlLCJ3HhsCmcMIRV6QmZ8cqFqCKkJlyqPqpAbQir8EJZRNR63hc+GkAgVtHAGu3iPrtGZw0XhCt46pMTALDZx3njkuIMNQ0gc1EADFaPzA5+Qm5qampooiYEMa1jFjHLawybuIdd3zMArrOK48jqOcziH5/oy4TKuYQ9X0FJOJ/EOi1jCm1RYEJ6ipbza2BDm9aX26ym/tjCrLzXhUpOnInT1pcKecFb5XRW+6MuEJtZwDVvYRle5VHEJS+igqS8xsIiXqCm3Dm7inb7EfnWsoIGKcsmxgyZ2/S9+A1RtY4lYlb2JAAAAAElFTkSuQmCC" />
+                    </defs>
+                </svg>
+
+
+                <div class="flex flex-1 justify-center px-2 lg:ml-6 lg:justify-end">
+                    <div class="grid w-full max-w-lg grid-cols-1 lg:max-w-xs">
+                        <input type="search" name="search" aria-label="Search"
+                            class="border-1 border-gray-500 col-start-1 row-start-1 block w-full bg-white py-1.5 pr-3 pl-10 text-base text-gray-900 outline-hidden placeholder:text-gray-400 focus:outline-2 focus:outline-offset-2 focus:outline-white/40 sm:text-sm/6"
+                            placeholder="Buscar libros">
+                        <svg class="pointer-events-none col-start-1 row-start-1 ml-3 size-5 self-center text-gray-400"
+                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+
+
+
             <div class="md:flex md:items-center md:justify-between">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-900">Trending products</h2>
                 <a href="#" class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block">
@@ -507,7 +540,7 @@
                 <!-- More products... -->
             </div>
 
-            <div class="flex items-center justify-between border-t border-gray-200 bg-white py-3 ">
+            <div class="flex items-center justify-between border-t border-gray-200 py-3 ">
                 <div class="flex flex-1 justify-between sm:hidden">
                     <a href="#"
                         class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
