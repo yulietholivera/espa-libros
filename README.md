@@ -1,6 +1,6 @@
 # Proyecto ESPA LIBROS
 
-Este repositorio contiene el desarrollo de la aplicación web *ESPA LIBROS*, que permite a los usuarios registrarse, navegar por un catálogo de libros, gestionar un carrito de compras y completar el proceso de pago.
+Este repositorio contiene el desarrollo de la aplicación web **ESPA LIBROS**, que permite a los usuarios registrarse, navegar por un catálogo de libros, gestionar un carrito de compras y completar el proceso de pago.
 
 ---
 
@@ -29,7 +29,7 @@ Este repositorio contiene el desarrollo de la aplicación web *ESPA LIBROS*, que
 
 ## 📁 Estructura del Proyecto
 
-
+```
 .
 ├── carrito.html          # Vista del carrito de compras
 ├── checkout.html         # Proceso de compra
@@ -44,7 +44,7 @@ Este repositorio contiene el desarrollo de la aplicación web *ESPA LIBROS*, que
 │   ├── home.png          # Mockup de Home (Figma)
 │   └── checkout.png      # Mockup de Checkout (Figma)
 └── README.md             # Documentación del proyecto
-
+```
 
 ---
 
@@ -52,25 +52,25 @@ Este repositorio contiene el desarrollo de la aplicación web *ESPA LIBROS*, que
 
 A continuación se incluyen los prototipos realizados en Figma:
 
-* *Login:*
+* **Login:**
   ![Login](doc/index.png)
 
-* *Home (Catálogo de Libros):*
+* **Home (Catálogo de Libros):**
   ![Home](doc/home.png)
 
-* *Checkout (Compra):*
+* **Checkout (Compra):**
   ![Checkout](doc/checkout.png)
 
 ---
 
 ## 💻 JavaScript
 
-La carpeta js/ contiene el archivo script.js, donde se implementa la lógica de interacción del usuario, validaciones y llamadas a la API.
+La carpeta `js/` contiene el archivo `script.js`, donde se implementa la lógica de interacción del usuario, validaciones y llamadas a la API.
 
-bash
+```bash
 js/
 └── script.js    # Funciones de carrito, filtros y manejo de eventos
-
+```
 
 ---
 
@@ -112,7 +112,7 @@ Ejemplos de documentos en MongoDB para las colecciones principales:
 
 ### Colección: usuarios
 
-json
+```json
 {
   "_id": ObjectId("64a1f9c2e1b2f8a0d1234567"),
   "nombre": "Juan Pérez",
@@ -123,11 +123,11 @@ json
   "createdAt": ISODate("2025-04-28T14:35:00Z"),
   "updatedAt": ISODate("2025-04-28T14:35:00Z")
 }
-
+```
 
 ### Colección: libros
 
-json
+```json
 {
   "_id": ObjectId("64a1fa3be1b2f8a0d1234568"),
   "titulo": "El Principito",
@@ -140,11 +140,11 @@ json
   "createdAt": ISODate("2025-04-28T14:40:00Z"),
   "updatedAt": ISODate("2025-04-28T14:40:00Z")
 }
-
+```
 
 ### Colección: pedidos
 
-json
+```json
 {
   "_id": ObjectId("64a1fb5de1b2f8a0d1234569"),
   "usuario": ObjectId("64a1f9c2e1b2f8a0d1234567"),
@@ -161,10 +161,18 @@ json
   "createdAt": ISODate("2025-05-03T10:15:00Z"),
   "updatedAt": ISODate("2025-05-03T10:15:00Z")
 }
-
+```
 
 ---
 
 
 
-Este README.md se irá actualizando según avance el desarrollo, incluyendo nuevas funcionalidades, API endpoints y pruebas.
+*Este README.md se irá actualizando según avance el desarrollo, incluyendo nuevas funcionalidades, API endpoints y pruebas.*
+
+
+
+
+
+
+
+
