@@ -168,11 +168,3 @@ Ejemplos de documentos en MongoDB para las colecciones principales:
 
 
 *Este README.md se irá actualizando según avance el desarrollo, incluyendo nuevas funcionalidades, API endpoints y pruebas.*
-
-
-
-
-
-
-
-
