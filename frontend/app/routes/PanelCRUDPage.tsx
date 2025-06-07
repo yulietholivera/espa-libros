@@ -33,7 +33,7 @@ export default function CheckoutPage() {
                         </header>
 
 
-                        <div className="border-b border-b-gray-900/10 lg:border-t lg:border-t-gray-900/5">
+                        <div className="bg-[#EAEAEA] border-b border-b-gray-900/10 lg:border-t lg:border-t-gray-900/5">
                             <dl className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:px-2 xl:px-0">
                                 <div
                                     className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8">
