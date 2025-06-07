@@ -1,3 +1,4 @@
+// /webapps/espa-libros/frontend/app/routes/RegisterPage.tsx
 
 export function meta(): Array<{ title: string }> {
   return [{ title: "Register" }];

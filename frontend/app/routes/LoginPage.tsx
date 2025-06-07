@@ -4,7 +4,7 @@ export function meta(): Array<{ title: string }> {
   return [{ title: "Iniciar sesión" }];
 }
 
-export default function IndexPage() {
+export default function LoginPage() {
     return (
         <>
             <div className="bg-regal2-espalibros pb-96 pt-24">

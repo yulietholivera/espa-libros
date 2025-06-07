@@ -13,7 +13,7 @@ type Pages = {
   "/": {
     params: {};
   };
-  "/index": {
+  "/login": {
     params: {};
   };
   "/checkout": {
@@ -28,20 +28,23 @@ type Pages = {
   "/registrar": {
     params: {};
   };
+  "/carrito": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/index" | "/checkout" | "/detalle-libro" | "/panel-crud" | "/registrar";
+    page: "/" | "/login" | "/checkout" | "/detalle-libro" | "/panel-crud" | "/registrar" | "/carrito";
   };
   "routes/HomePage.tsx": {
     id: "routes/HomePage";
     page: "/";
   };
-  "routes/IndexPage.tsx": {
-    id: "routes/IndexPage";
-    page: "/index";
+  "routes/LoginPage.tsx": {
+    id: "routes/LoginPage";
+    page: "/login";
   };
   "routes/CheckoutPage.tsx": {
     id: "routes/CheckoutPage";
@@ -58,5 +61,9 @@ type RouteFiles = {
   "routes/RegisterPage.tsx": {
     id: "routes/RegisterPage";
     page: "/registrar";
+  };
+  "routes/CartPage.tsx": {
+    id: "routes/CartPage";
+    page: "/carrito";
   };
 };
