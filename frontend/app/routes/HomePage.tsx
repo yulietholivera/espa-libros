@@ -9,7 +9,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
     <div className="bg-regal2-espalibros">
