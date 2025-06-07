@@ -7,6 +7,6 @@ export default [
   route("/checkout", "routes/CheckoutPage.tsx"), // ruta “/checkout”
   route("/detalle-libro", "routes/BookDetailPage.tsx"),
   route("/panel-crud", "routes/PanelCRUDPage.tsx"),
-//   route("/registrar", "routes/RegisterPage.tsx"),
+  route("/registrar", "routes/RegisterPage.tsx"),
   // …más rutas según necesites
 ] satisfies RouteConfig;

@@ -25,12 +25,15 @@ type Pages = {
   "/panel-crud": {
     params: {};
   };
+  "/registrar": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/index" | "/checkout" | "/detalle-libro" | "/panel-crud";
+    page: "/" | "/index" | "/checkout" | "/detalle-libro" | "/panel-crud" | "/registrar";
   };
   "routes/HomePage.tsx": {
     id: "routes/HomePage";
@@ -51,5 +54,9 @@ type RouteFiles = {
   "routes/PanelCRUDPage.tsx": {
     id: "routes/PanelCRUDPage";
     page: "/panel-crud";
+  };
+  "routes/RegisterPage.tsx": {
+    id: "routes/RegisterPage";
+    page: "/registrar";
   };
 };
