@@ -31,19 +31,95 @@ Este repositorio contiene el desarrollo de la aplicación web **ESPA LIBROS**, q
 
 ```
 .
-├── carrito.html          # Vista del carrito de compras
-├── checkout.html         # Proceso de compra
-├── detalleLibro.html     # Detalle de cada libro
-├── home.html             # Página principal tras iniciar sesión
-├── index.html            # Página de login
-├── js
-│   └── script.js         # Lógica y eventos en JavaScript
-├── panelCRUD.html        # Panel de administración CRUD
-├── doc
-│   ├── index.png         # Mockup de Login (Figma)
-│   ├── home.png          # Mockup de Home (Figma)
-│   └── checkout.png      # Mockup de Checkout (Figma)
-└── README.md             # Documentación del proyecto
+```bash
+.
+├── backend
+│   ├── package.json
+│   ├── src
+│   │   ├── config
+│   │   │   └── db.ts
+│   │   ├── constants
+│   │   │   └── negocio.ts
+│   │   ├── controllers
+│   │   │   ├── authController.ts
+│   │   │   ├── carritoController.ts
+│   │   │   ├── libroController.ts
+│   │   │   └── pedidoController.ts
+│   │   ├── index.ts
+│   │   ├── middlewares
+│   │   │   ├── adminMiddleware.ts
+│   │   │   ├── authMiddleware.ts
+│   │   │   ├── logMiddleware.ts
+│   │   │   └── validationMiddleware.ts
+│   │   ├── models
+│   │   │   ├── Carrito.ts
+│   │   │   ├── Libro.ts
+│   │   │   ├── Notificacion.ts
+│   │   │   ├── Pedido.ts
+│   │   │   └── Usuario.ts
+│   │   ├── routes
+│   │   │   ├── admin.ts
+│   │   │   ├── auth.ts
+│   │   │   ├── carrito.ts
+│   │   │   ├── libros.ts
+│   │   │   └── pedidos.ts
+│   │   ├── services
+│   │   │   ├── emailService.ts
+│   │   │   └── impuestosService.ts
+│   │   ├── types
+│   │   │   └── index.d.ts
+│   │   └── utils
+│   │       └── generarToken.ts
+│   └── tsconfig.json
+├── Espa-Libros.postman_collection.json
+├── frontend
+│   ├── app
+│   │   ├── app.css
+│   │   ├── root.tsx
+│   │   ├── routes
+│   │   │   ├── BookDetailPage.tsx
+│   │   │   ├── CartPage.tsx
+│   │   │   ├── CheckoutPage.tsx
+│   │   │   ├── HomePage.tsx
+│   │   │   ├── LoginPage.tsx
+│   │   │   ├── PanelCRUDPage.tsx
+│   │   │   └── RegisterPage.tsx
+│   │   ├── routes.ts
+│   │   └── welcome
+│   │       ├── logo-dark.svg
+│   │       ├── logo-light.svg
+│   │       └── welcome.tsx
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── public
+│   │   └── favicon.ico
+│   ├── react-router.config.ts
+│   ├── README.md
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── README.md
+└── static-html
+    ├── carrito.html
+    ├── checkout.html
+    ├── detalleLibro.html
+    ├── doc
+    │   ├── carrito.png
+    │   ├── checkout.png
+    │   ├── detalleLibro.png
+    │   ├── home.png
+    │   ├── index.png
+    │   ├── panelCRUD.png
+    │   └── registar.png
+    ├── home.html
+    ├── img
+    │   ├── Captura desde 2025-04-28 16-30-42.png
+    │   .
+        .
+    ├── index.html
+    ├── js
+    │   └── script.js
+    ├── panelCRUD.html
+    └── registar.html
 ```
 
 ---
@@ -53,24 +129,35 @@ Este repositorio contiene el desarrollo de la aplicación web **ESPA LIBROS**, q
 A continuación se incluyen los prototipos realizados en Figma:
 
 * **Login:**
-  ![Login](doc/index.png)
+  ![Login](static-html/doc/login.png)
 
 * **Home (Catálogo de Libros):**
-  ![Home](doc/home.png)
+  ![Home](static-html/doc/home.png)
 
-* **Checkout (Compra):**
-  ![Checkout](doc/checkout.png)
+* **Checkout (Confirmacion de compra):**
+  ![Checkout](static-html/doc/checkout.png)
+
+* **Carrito (Carrito de compras):**
+  ![Carrito](static-html/doc/carrito.png)
+
+* **DetalleLibro (Detalle de los libros):**
+  ![DetalleLibro](static-html/doc/detalleLibro.png)
+
+* **PanelCRUD (Panel de administracion):**
+  ![PanelCRUD](static-html/doc/panelCRUD.png)
+
+* **Registar (Registro de usuario):**
+  ![Registar](static-html/doc/registar.png)
+
 
 ---
 
-## 💻 JavaScript
+## 💻 JavaScript / TypeScript
+El proyecto está desarrollado con:
 
-La carpeta `js/` contiene el archivo `script.js`, donde se implementa la lógica de interacción del usuario, validaciones y llamadas a la API.
+**Backend:** `Node.js`, `Express.js` y TypeScript para la lógica de servidor, endpoints CRUD y autenticación.
 
-```bash
-js/
-└── script.js    # Funciones de carrito, filtros y manejo de eventos
-```
+**Frontend:** React con TypeScript para la interfaz de usuario y manejo de rutas.
 
 ---
 
@@ -114,14 +201,13 @@ Ejemplos de documentos en MongoDB para las colecciones principales:
 
 ```json
 {
-  "_id": ObjectId("64a1f9c2e1b2f8a0d1234567"),
-  "nombre": "Juan Pérez",
-  "email": "juan.perez@example.com",
-  "password": "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36djfK",
-  "fechaRegistro": ISODate("2025-04-28T14:35:00Z"),
+  "_id": "6842b8712cbbbcc4b0302463",
+  "nombre": "Lou",
+  "email": "Ressie.Jast87@hotmail.com",
+  "passwordHash": "$2b$10$DMeSkbLAU70WSGrzoHjXPOjlQQ..pm4.vP.X6wxnqBS.vHJ1twfcC",
   "rol": "cliente",
-  "createdAt": ISODate("2025-04-28T14:35:00Z"),
-  "updatedAt": ISODate("2025-04-28T14:35:00Z")
+  "fechaRegistro": "2025-06-06T09:44:17.864Z",
+  "__v": 0
 }
 ```
 
@@ -129,16 +215,15 @@ Ejemplos de documentos en MongoDB para las colecciones principales:
 
 ```json
 {
-  "_id": ObjectId("64a1fa3be1b2f8a0d1234568"),
-  "titulo": "El Principito",
-  "autor": "Antoine de Saint-Exupéry",
-  "descripcion": "Una maravillosa fábula filosófica…",
-  "precio": 29.90,
-  "stock": 120,
-  "isbn": "978-84-376-0494-7",
-  "fechaPublicacion": ISODate("1943-04-06T00:00:00Z"),
-  "createdAt": ISODate("2025-04-28T14:40:00Z"),
-  "updatedAt": ISODate("2025-04-28T14:40:00Z")
+  "_id": "6842c7af90583618e64a9c34",
+  "titulo": "Cien años de soledad",
+  "autor": "Gabriel García Márquez",
+  "descripcion": "La obra maestra del realismo mágico",
+  "precio": 25.5,
+  "stock": 100,
+  "imagenURL": "https://mi-servidor.com/portadas/cien-anos.jpg",
+  "categoria": "novela",
+  "__v": 0
 }
 ```
 
@@ -146,20 +231,58 @@ Ejemplos de documentos en MongoDB para las colecciones principales:
 
 ```json
 {
-  "_id": ObjectId("64a1fb5de1b2f8a0d1234569"),
-  "usuario": ObjectId("64a1f9c2e1b2f8a0d1234567"),
-  "fechaPedido": ISODate("2025-05-03T10:15:00Z"),
-  "estado": "pendiente",
-  "total": 59.80,
+  "_id": "6842dee9fd63b13e0044a6f4",
+  "usuarioId": "6842cd99da3171f7317d40d9",
   "items": [
     {
-      "libro": ObjectId("64a1fa3be1b2f8a0d1234568"),
+      "libroId": "6842c7af90583618e64a9c34",
       "cantidad": 2,
-      "precioUnitario": 29.90
+      "precioUnitario": 25.5
     }
   ],
-  "createdAt": ISODate("2025-05-03T10:15:00Z"),
-  "updatedAt": ISODate("2025-05-03T10:15:00Z")
+  "subtotal": 51,
+  "envio": 16,
+  "impuestos": 9.69,
+  "total": 76.69,
+  "metodoEnvio": "express",
+  "metodoPago": "tarjeta",
+  "direccionEnvio": {
+    "calle": "Calle 123 #45-67",
+    "ciudad": "Bogotá",
+    "estado": "Cundinamarca",
+    "zip": "110111",
+    "pais": "Colombia"
+  },
+  "estado": "pendiente",
+  "fechaCreacion": "2025-06-06T12:28:25.162Z",
+  "__v": 0
+}
+```
+
+### Colección: carritos
+
+```json
+{
+  "_id": "6842cf3fda3171f7317d40df",
+  "usuarioId": "6842cd99da3171f7317d40d9",
+  "items": [],
+  "total": 0,
+  "fechaActualizacion": "2025-06-06T13:07:30.559Z",
+  "__v": 10
+}
+```
+
+### Colección: notificaciones
+
+```json
+{
+  "_id": "6842dee9fd63b13e0044a6f7",
+  "usuarioId": "6842cd99da3171f7317d40d9",
+  "tipo": "pedido_creado",
+  "mensaje": "Tu pedido #6842dee9fd63b13e0044a6f4 ha sido creado exitosamente.",
+  "visto": false,
+  "fechaCreacion": "2025-06-06T12:28:25.174Z",
+  "__v": 0
 }
 ```
 
