@@ -16,12 +16,21 @@ type Pages = {
   "/index": {
     params: {};
   };
+  "/checkout": {
+    params: {};
+  };
+  "/detalle-libro": {
+    params: {};
+  };
+  "/panel-crud": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/index";
+    page: "/" | "/index" | "/checkout" | "/detalle-libro" | "/panel-crud";
   };
   "routes/HomePage.tsx": {
     id: "routes/HomePage";
@@ -30,5 +39,17 @@ type RouteFiles = {
   "routes/IndexPage.tsx": {
     id: "routes/IndexPage";
     page: "/index";
+  };
+  "routes/CheckoutPage.tsx": {
+    id: "routes/CheckoutPage";
+    page: "/checkout";
+  };
+  "routes/BookDetailPage.tsx": {
+    id: "routes/BookDetailPage";
+    page: "/detalle-libro";
+  };
+  "routes/PanelCRUDPage.tsx": {
+    id: "routes/PanelCRUDPage";
+    page: "/panel-crud";
   };
 };

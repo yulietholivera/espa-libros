@@ -1,9 +1,7 @@
-// /webapps/espa-libros/frontend/app/routes/home.tsx
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+// /webapps/espa-libros/frontend/app/routes/HomePage.tsx
 import { Link } from "react-router";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
