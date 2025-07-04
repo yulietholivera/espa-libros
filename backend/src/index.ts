@@ -2,6 +2,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import { conectarDB } from './config/db';
 import { logMiddleware } from './middlewares/logMiddleware';
 
@@ -16,8 +17,15 @@ dotenv.config();
 const app: Application = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173'], // puerto por defecto de Vite
+  methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS'],
+  credentials: true
+}));
 app.use(express.json());
+
+// Servir archivos subidos (Multer)
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Middleware de logging para debug (imprime route, headers y body)
 app.use(logMiddleware);
@@ -35,4 +43,4 @@ app.use('/api/admin', adminRoutes);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-});;
+});

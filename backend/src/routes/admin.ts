@@ -1,9 +1,20 @@
 // /webapps/espa-libros/backend/src/routes/admin.ts
 import { Router } from 'express';
+import multer from 'multer';
+import path from 'path';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { adminMiddleware } from '../middlewares/adminMiddleware';
-import { listarLibros, crearLibro, actualizarLibro, eliminarLibro } from '../controllers/libroController';
-import { obtenerPedidosUsuario, obtenerPedidoPorId, actualizarEstadoPedido } from '../controllers/pedidoController';
+import {
+  listarLibros,
+  crearLibro,
+  actualizarLibro,
+  eliminarLibro
+} from '../controllers/libroController';
+import {
+  obtenerPedidosUsuario,
+  obtenerPedidoPorId,
+  actualizarEstadoPedido
+} from '../controllers/pedidoController';
 import { Usuario } from '../models/Usuario';
 import { Pedido } from '../models/Pedido';
 import { Carrito } from '../models/Carrito';
@@ -11,12 +22,22 @@ import { Notificacion } from '../models/Notificacion';
 
 const router = Router();
 
+// ─── Multer configuration ───
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, '../../uploads'),
+  filename: (_req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+const upload = multer({ storage });
+
 // Prefix: /api/admin
 router.use(authMiddleware, adminMiddleware);
 
 // --- Gestión de libros ---
 router.get('/libros', listarLibros);
-router.post('/libros', crearLibro);
+// Ahora usamos multer para manejar el file upload en 'imagenURL'
+router.post('/libros', upload.single('imagenURL'), crearLibro);
 router.put('/libros/:id', actualizarLibro);
 router.delete('/libros/:id', eliminarLibro);
 

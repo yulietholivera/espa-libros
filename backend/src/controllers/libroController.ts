@@ -1,3 +1,4 @@
+// /webapps/espa-libros/backend/src/controllers/libroController.ts
 import { Request, Response } from 'express';
 import { Libro, ILibro } from '../models/Libro';
 
@@ -34,7 +35,12 @@ export const obtenerLibro = async (req: Request, res: Response) => {
 
 // Crear un libro (solo admin)
 export const crearLibro = async (req: Request, res: Response) => {
-  const { titulo, autor, descripcion, precio, stock, imagenURL, categoria } = req.body;
+  // Campos de texto
+  const { titulo, autor, descripcion, precio, stock, categoria } = req.body;
+  // La URL de la imagen según lo subido por Multer
+  const imagenURL = req.file
+    ? `/uploads/${req.file.filename}`
+    : req.body.imagenURL; // fallback si envías solo URL
 
   try {
     const nuevoLibro: ILibro = new Libro({

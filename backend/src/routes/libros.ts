@@ -1,3 +1,4 @@
+// /webapps/espa-libros/backend/src/routes/libros.ts
 import { Router } from 'express';
 import { listarLibros, obtenerLibro, crearLibro, actualizarLibro, eliminarLibro } from '../controllers/libroController';
 import { authMiddleware } from '../middlewares/authMiddleware';
