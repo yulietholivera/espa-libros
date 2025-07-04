@@ -1,3 +1,5 @@
+// /webapps/espa-libros/frontend/app/routes/PanelCRUDPage.tsx
+import ModalDialogs from './ModalDialogs';
 export function meta(): Array<{ title: string }> {
     return [{ title: "Iniciar sesión" }];
 }
@@ -37,16 +39,11 @@ export default function CheckoutPage() {
                                     className="order-last flex w-full gap-x-8 text-sm/6 font-semibold sm:order-0 sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:text-sm/7">
 
                                 </div>
-                                <a href="#"
-                                    className="ml-auto flex items-center gap-x-1 rounded-md bg-regal-espalibros px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-regal-espalibros focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    <svg className="-ml-1.5 size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                                        data-slot="icon">
-                                        <path
-                                            d="M10.75 6.75a.75.75 0 0 0-1.5 0v2.5h-2.5a.75.75 0 0 0 0 1.5h2.5v2.5a.75.75 0 0 0 1.5 0v-2.5h2.5a.75.75 0 0 0 0-1.5h-2.5v-2.5Z" />
-                                    </svg>
-                                    Agregar libro
-                                </a>
+                               
+                                
                             </div>
+                            {/* Botón que abre el modal */}
+                                <ModalDialogs />
                         </header>
 
 

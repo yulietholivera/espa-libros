@@ -1,3 +1,4 @@
+// /webapps/espa-libros/frontend/app/routes/ModalDialogs.tsx
 'use client'
 
 import { useState } from 'react'
@@ -11,10 +12,17 @@ export default function Example() {
     <div>
       <button
         onClick={() => setOpen(true)}
-        className="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
+        className="ml-auto flex items-center gap-x-1 rounded-md bg-regal-espalibros px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-regal-espalibros focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-        Open dialog
+        <svg className="-ml-1.5 size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+                                              data-slot="icon">
+                                              <path
+                                                  d="M10.75 6.75a.75.75 0 0 0-1.5 0v2.5h-2.5a.75.75 0 0 0 0 1.5h2.5v2.5a.75.75 0 0 0 1.5 0v-2.5h2.5a.75.75 0 0 0 0-1.5h-2.5v-2.5Z" />
+                                          </svg>
+        Agregar libro
       </button>
+
+    
       <Dialog open={open} onClose={setOpen} className="relative z-10">
         <DialogBackdrop
           transition
