@@ -1,0 +1,24 @@
+/* /webapps/espa-libros/frontend/app/app.css */
+@import "tailwindcss";
+
+/* Extiende tu tema: define variables CSS que Tailwind traducirá a utilidades */
+@theme {
+  /* Tipografía (ya lo tenías) */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Tus colores personalizados */
+  --color-regal-espalibros: #CB9176;
+  --color-regal2-espalibros: #EAEAEA;
+  --color-regal3-espalibros: #D9D9D9;
+}
+
+/* Ejemplo de estilos globales */
+html,
+body {
+  @apply bg-white dark:bg-gray-950;
+
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  }
+}
