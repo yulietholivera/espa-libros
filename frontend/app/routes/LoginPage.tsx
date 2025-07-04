@@ -128,7 +128,7 @@ export default function LoginPage() {
                         </form>
                         <Link to="/registrar">
                                 <div href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      See sizing chart
+                      O Resitrate
                     </div>
 
                             </Link>

@@ -1,16 +1,28 @@
+// /webapps/espa-libros/backend/src/controllers/authController.ts
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { Usuario, IUsuario } from '../models/Usuario';
 import { generarToken } from '../utils/generarToken';
 
 export const registro = async (req: Request, res: Response) => {
-  // Ahora también desestructuramos "rol" (opcional, por defecto 'cliente')
-  const { nombre, email, password, rol } = req.body as {
+  const {
+    nombre,
+    email,
+    password,
+    confirmPassword,
+    rol,
+  } = req.body as {
     nombre: string;
     email: string;
     password: string;
+    confirmPassword: string;
     rol?: 'cliente' | 'administrador';
   };
+
+  // 0) Verificar que password y confirmPassword coincidan
+  if (password !== confirmPassword) {
+    return res.status(400).json({ mensaje: 'Las contraseñas no coinciden' });
+  }
 
   try {
     // 1) Verificar si existe usuario con ese email
@@ -19,11 +31,11 @@ export const registro = async (req: Request, res: Response) => {
       return res.status(400).json({ mensaje: 'El email ya está registrado' });
     }
 
-    // 2) Encriptar password
+    // 2) Encriptar contraseña
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // 3) Validar rol (si viene, debe ser 'cliente' o 'administrador'; si no viene, se asume 'cliente')
+    // 3) Validar rol (por defecto 'cliente')
     let rolFinal: 'cliente' | 'administrador' = 'cliente';
     if (rol) {
       if (rol !== 'cliente' && rol !== 'administrador') {
@@ -32,7 +44,7 @@ export const registro = async (req: Request, res: Response) => {
       rolFinal = rol;
     }
 
-    // 4) Crear usuario con el rol especificado (o por defecto 'cliente')
+    // 4) Crear y guardar el usuario
     const nuevoUsuario: IUsuario = new Usuario({
       nombre,
       email,
@@ -41,8 +53,13 @@ export const registro = async (req: Request, res: Response) => {
     });
     await nuevoUsuario.save();
 
+    // 5) Generar JWT
+    const token = generarToken({ id: nuevoUsuario._id.toString(), rol: rolFinal });
+
+    // 6) Responder con token y datos públicos del usuario
     return res.status(201).json({
       mensaje: 'Usuario registrado correctamente',
+      token,
       usuario: {
         id: nuevoUsuario._id,
         nombre: nuevoUsuario.nombre,
@@ -57,7 +74,7 @@ export const registro = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body as { email: string; password: string };
 
   try {
     const usuario = await Usuario.findOne({ email });
@@ -70,7 +87,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ mensaje: 'Credenciales inválidas' });
     }
 
-    // Generar token (incluye el rol dentro del payload)
+    // Generar token (incluye el rol en el payload)
     const token = generarToken({ id: usuario._id.toString(), rol: usuario.rol });
 
     return res.json({
@@ -87,3 +104,4 @@ export const login = async (req: Request, res: Response) => {
     return res.status(500).json({ mensaje: 'Error en el servidor' });
   }
 };
+
