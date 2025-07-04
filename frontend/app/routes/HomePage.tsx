@@ -94,6 +94,7 @@ export default function HomePage() {
                                         xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB/klEQVR4Ae3BoWtUARwA4O89XzjkwoELFwwLC4oHlqEDjQMVB1Oc/8FA7RZB0zS7YBGjAweeIMyBwWAwGC4oKE5QMFxYWLjwwoULHvzCMaaww7e7d3LfZ9Il9qtjBTOK00YTHUcgMbCIl6gpXhvX0VKwRKjjG2rYRktxGriBXziNrgJlwgpq2MaS4n3EeczjgwKlQl346GjsCHMKlgo9ITNhUhMuFXpC5mhUhVzBUqEl3MK8Yi1hGT20FCwx8BrLwi66/l0NNeER7itYYiDDQ6zihOL8xDqeOAKJP6uj4t910DE1NTX1N4mDGpgxWl3soGNIiYFZvMCC8cjxAOuGkAkVbKGBXXw3Whku4DHaaDqkTFhBA1+xgNzoreIZ7qLpkFLhlLCJ3HhsCmcMIRV6QmZ8cqFqCKkJlyqPqpAbQir8EJZRNR63hc+GkAgVtHAGu3iPrtGZw0XhCt46pMTALDZx3njkuIMNQ0gc1EADFaPzA5+Qm5qampooiYEMa1jFjHLawybuIdd3zMArrOK48jqOcziH5/oy4TKuYQ9X0FJOJ/EOi1jCm1RYEJ6ipbza2BDm9aX26ym/tjCrLzXhUpOnInT1pcKecFb5XRW+6MuEJtZwDVvYRle5VHEJS+igqS8xsIiXqCm3Dm7inb7EfnWsoIGKcsmxgyZ2/S9+A1RtY4lYlb2JAAAAAElFTkSuQmCC" />
                                 </defs>
                             </svg>
+                             <Link to="/panel-crud">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 xmlnsXlink="http://www.w3.org/1999/xlink">
                                 <rect width="48" height="48" fill="url(#pattern0_4_11)" />
@@ -105,6 +106,7 @@ export default function HomePage() {
                                         xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADb0lEQVR4Ae3BT2jVdQAA8M/79T1M2GHQwlEaAw3eYYdB89SkCQsXCE2YVCR0UXjHDkaGgo2MCAmTLTQ8aDhR2KACQQ8DFz5okYLDRR40Rk140oIdHvQOKxO+wny8v9seugd+Pp55ylKKdaDF+pbHgkdSok6Mo0dzyOJdzKdEV7ATefxtfXserchiexDtFG3GovWtHX+h10OJYovWvwWPSTS5xPrWjkFVBCuXxja8iN/xE+atzCBuYk5lbbiGNLYjq4ygfu/gCNJKZfExsmr7AMexiD2YVCpgHGnM4LoKErUFnMYFpHEff4hmkUcvruKg6npwTNSGy8goNYJ+5LALBRUkahvBPuSxH5twVfQlXsAXos+RUV4bxhFwAsMIOImTCKIMMihgN+ZVEVQ3gAzyeBNZpQo4iFmcwwgmcUexM+jEDRzAEu7gNDLYim8wItqPaTUkqjssGkZWdWP4FgEHFGvHIBYxhCXRGHYgh36MI+AzjKlDorI2vIYCRtXnK9Fbii3gDWzHnGLT2IYZ0Q84rE5BZV2iGygo7yO8r1QHWpG3bFJl8+jFAC5ZgaCyIFpSal6URlp5WzCjfnlMWKGgskXRRqWOYlKpFlwWzaisHWdwHhetQVDZLBaRRhq3LStgSqkh0c+q68IubMBFa5CobAnnRSNqa8WnojH1CaJu3EK/FUpUdxQL6MdJBOW1Yhxp/IpTirXgGkaVN4gu9Ir24jd0qSFRXQ57UEAGv2AvOkSdyOAWBpDDIJYU60AvdqlPP9LoUUNQ2xR2YBzdOKe8GxjCnCcoqM80XsE+DCGNjbiHm7iIMU9BUL8CRjFq5XKYwbRoDndxSTSFfbgpmkI/rqsheDIK6LZsDlstm8Imy87irDokmlyiyQXF+jSZoNhVTSYo9qPm8LpHgmJ9msMDjySaXKL5BI8Jont4Cd9hxvr2quiuh1KiQVxAi+awhN24lLKsEwPosHoBh0TDih0RDVubHKZw20PBsjmcsjZdOIS7+ESxvdiCCcxqkERjDYiySk2LBjRQorHeE11R6orobQ2UaJw+dCOH75WaQA496NMgicZowYjoBApKFfC16DhaNEDK6g3hmKgV7XiAP/Gf8hJsRgoLyIs+xIRVCFYvjU7FUnhZfdrRLtpqlVLWplP0HDYgrz6t+Af/iuY806T+BzBzyJlh+HqwAAAAAElFTkSuQmCC" />
                                 </defs>
                             </svg>
+                            </Link>
                             <Link to="/login">
                                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
                                     xmlnsXlink="http://www.w3.org/1999/xlink">
