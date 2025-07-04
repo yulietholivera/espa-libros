@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import { saveToken } from "../utils/auth";
 
 export function meta() {
     return [{ title: "Registro de Usuario" }];
@@ -39,7 +40,7 @@ export default function RegisterPage() {
                 setError(data.errores?.join(", ") || data.mensaje || "Error desconocido");
             } else {
                 // Guardar token y redirigir
-                localStorage.setItem("token", data.token);
+                saveToken(data.token);
                 navigate("/"); // o a la página que prefieras
             }
         } catch (err) {

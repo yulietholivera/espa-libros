@@ -1,10 +1,11 @@
 // /webapps/espa-libros/frontend/app/routes/PanelCRUDPage.tsx
 import ModalDialogs from './ModalDialogs';
+import TableCRUDPage from './TableCRUDPage';
 export function meta(): Array<{ title: string }> {
     return [{ title: "Iniciar sesión" }];
 }
 
-export default function CheckoutPage() {
+export default function PanelCRUDPage() {
     return (
 
         <div className="bg-regal2-espalibros">
@@ -102,137 +103,9 @@ export default function CheckoutPage() {
                             <div className="mt-6 overflow-hidden border-t border-gray-100">
                                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                                        <table className="w-full text-left">
-                                            <thead className="sr-only">
-                                                <tr>
-                                                    <th>Amount</th>
-                                                    <th className="hidden sm:table-cell">Client</th>
-                                                    <th>More details</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr className="text-sm/6 text-gray-900">
-                                                    <th scope="colgroup" colSpan={3}
-                                                        className="relative isolate py-2 font-semibold">
-                                                        <time dateTime="2023-03-22">Hoy</time>
-                                                        <div
-                                                            className="absolute inset-y-0 right-full -z-10 w-screen border-b border-gray-200 bg-gray-50">
-                                                        </div>
-                                                        <div
-                                                            className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-gray-200 bg-gray-50">
-                                                        </div>
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <td className="relative py-5 pr-6">
-                                                        <div className="flex gap-x-6">
-                                                            <div className="shrink-0">
-                                                                <img src="img/Captura desde 2025-04-28 16-30-42.png"
-                                                                    alt="Front of men&#039;s Basic Tee in black." className="w-25 " />
-                                                            </div>
-                                                            <div className="flex-auto">
-                                                                <div className="flex items-start gap-x-3">
-                                                                    <div className="text-sm/6 font-medium text-gray-900">Las vidas
-                                                                        dentro de tu cabeza
-                                                                    </div>
-                                                                    <div
-                                                                        className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">
-                                                                        Paid</div>
+                                        
 
-
-                                                                    <p className="mt-3 text-sm text-gray-500">This durable and
-                                                                        portable
-                                                                        insulated tumbler
-                                                                        will keep your beverage at the perfect temperature
-                                                                        during
-                                                                        your next adventure.
-                                                                    </p>
-                                                                </div>
-                                                                <div className="mt-1 text-xs/5 text-gray-500">$500.00 tax</div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="absolute right-full bottom-0 h-px w-screen bg-gray-100">
-                                                        </div>
-                                                        <div className="absolute bottom-0 left-0 h-px w-screen bg-gray-100"></div>
-                                                    </td>
-                                                    <td className="hidden py-5 pr-6 sm:table-cell">
-                                                        <div className="text-sm/6 text-gray-900">Reform</div>
-                                                        <div className="mt-1 text-xs/5 text-gray-500">Website redesign</div>
-                                                    </td>
-                                                    <td className="py-5 text-right">
-                                                        <div className="flex justify-end">
-                                                            <a href="#"
-                                                                className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500">View<span
-                                                                    className="hidden sm:inline"> transaction</span><span
-                                                                        className="sr-only">, invoice #00012, Reform</span></a>
-                                                        </div>
-                                                        <div className="mt-1 text-xs/5 text-gray-500">Invoice <span
-                                                            className="text-gray-900">#00012</span></div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr className="text-sm/6 text-gray-900">
-                                                    <th scope="colgroup" colSpan={3}
-                                                        className="relative isolate py-2 font-semibold">
-                                                        <time dateTime="2023-03-21">Ayer</time>
-                                                        <div
-                                                            className="absolute inset-y-0 right-full -z-10 w-screen border-b border-gray-200 bg-gray-50">
-                                                        </div>
-                                                        <div
-                                                            className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-gray-200 bg-gray-50">
-                                                        </div>
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <td className="relative py-5 pr-6">
-                                                        <div className="flex gap-x-6">
-                                                            <div className="shrink-0">
-                                                                <img src="img/Captura desde 2025-04-28 16-31-17.png"
-                                                                    alt="Front of men&#039;s Basic Tee in black." className="w-25 " />
-                                                            </div>
-                                                            <div className="flex-auto">
-                                                                <div className="flex items-start gap-x-3">
-                                                                    <div className="text-sm/6 font-medium text-gray-900">Las vidas
-                                                                        dentro de tu cabeza
-                                                                    </div>
-                                                                    <div
-                                                                        className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">
-                                                                        Paid</div>
-
-
-                                                                    <p className="mt-3 text-sm text-gray-500">This durable and
-                                                                        portable
-                                                                        insulated tumbler
-                                                                        will keep your beverage at the perfect temperature
-                                                                        during
-                                                                        your next adventure.
-                                                                    </p>
-                                                                </div>
-                                                                <div className="mt-1 text-xs/5 text-gray-500">$500.00 tax</div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="absolute right-full bottom-0 h-px w-screen bg-gray-100">
-                                                        </div>
-                                                        <div className="absolute bottom-0 left-0 h-px w-screen bg-gray-100"></div>
-                                                    </td>
-                                                    <td className="hidden py-5 pr-6 sm:table-cell">
-                                                        <div className="text-sm/6 text-gray-900">Reform</div>
-                                                        <div className="mt-1 text-xs/5 text-gray-500">Website redesign</div>
-                                                    </td>
-                                                    <td className="py-5 text-right">
-                                                        <div className="flex justify-end">
-                                                            <a href="#"
-                                                                className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500">View<span
-                                                                    className="hidden sm:inline"> transaction</span><span
-                                                                        className="sr-only">, invoice #00012, Reform</span></a>
-                                                        </div>
-                                                        <div className="mt-1 text-xs/5 text-gray-500">Invoice <span
-                                                            className="text-gray-900">#00012</span></div>
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
+                                        <TableCRUDPage />
                                     </div>
                                 </div>
                             </div>

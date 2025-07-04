@@ -18,10 +18,11 @@ const app: Application = express();
 
 // Middlewares
 app.use(cors({
-  origin: ['http://localhost:5173'], // puerto por defecto de Vite
-  methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS'],
-  credentials: true
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 // Servir archivos subidos (Multer)

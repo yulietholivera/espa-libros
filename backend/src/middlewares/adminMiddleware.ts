@@ -1,3 +1,4 @@
+// /webapps/espa-libros/backend/src/middlewares/adminMiddleware.ts
 import { Request, Response, NextFunction } from 'express';
 
 export const adminMiddleware = (req: Request, res: Response, next: NextFunction) => {

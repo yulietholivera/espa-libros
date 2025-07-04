@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import { saveToken, saveUser } from "../utils/auth"
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -28,8 +29,8 @@ export default function LoginPage() {
                 throw new Error(body.mensaje || "Error al iniciar sesión");
             }
             // Guarda el token y los datos de usuario
-            localStorage.setItem("token", body.token);
-            localStorage.setItem("usuario", JSON.stringify(body.usuario));
+            saveToken(body.token)
+            saveUser(body.usuario)
             // Redirige al home (o a donde prefieras)
             navigate("/");
         } catch (err: any) {

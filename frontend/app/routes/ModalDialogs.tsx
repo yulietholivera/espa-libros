@@ -5,6 +5,8 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
 
+const API = import.meta.env.VITE_API_URL
+
 export default function ModalDialogs() {
     const [open, setOpen] = useState(false)
     const [titulo, setTitulo] = useState<string>('')
@@ -23,20 +25,38 @@ export default function ModalDialogs() {
         formData.append('titulo', titulo)
         formData.append('autor', autor)
         formData.append('descripcion', descripcion)
-        formData.append('precio', precio.toString())
-        formData.append('stock', stock.toString())
+        formData.append('precio', precio?.toString() ?? '0')
+        formData.append('stock', stock?.toString() ?? '0')
         formData.append('categoria', categoria)
         formData.append('imagenURL', imagenFile)
 
-        const res = await fetch('/api/admin/libros', {
+        // Recupera el token desde localStorage
+        const token = localStorage.getItem('token')
+
+        const res = await fetch(`${API}/libros`, {
             method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
             body: formData,
         })
+
         if (res.ok) {
             setOpen(false)
-            // opcional: limpiar campos aquí
+            // limpiar campos
+            setTitulo('')
+            setAutor('')
+            setDescripcion('')
+            setPrecio(null)
+            setStock(null)
+            setCategoria('')
+            setImagenFile(null)
+            // opcional: aquí podrías notificar al padre para recargar la lista
+        } else {
+            console.error('Error al crear libro:', await res.json())
         }
     }
+
 
     return (
         <div>
