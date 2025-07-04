@@ -80,7 +80,7 @@ export default function ModalDialogs() {
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setTitulo(e.target.value)}
                     placeholder="Ej. Las vidas dentro de tu cabeza"
                     required
-                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
+                    className="text-black mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
                   />
                 </div>
 
@@ -96,7 +96,7 @@ export default function ModalDialogs() {
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setAutor(e.target.value)}
                     placeholder="Ej. Carlos Sánchez"
                     required
-                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
+                    className="text-black mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
                   />
                 </div>
 
@@ -112,7 +112,7 @@ export default function ModalDialogs() {
                     placeholder="Ej. Una novela emocionante"
                     required
                     rows={3}
-                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
+                    className="text-black mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
                   />
                 </div>
 
@@ -128,7 +128,7 @@ export default function ModalDialogs() {
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPrecio(Number(e.target.value))}
                     placeholder="Ej. 24.99"
                     required
-                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
+                    className="text-black mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
                   />
                 </div>
 
@@ -144,7 +144,7 @@ export default function ModalDialogs() {
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setStock(Number(e.target.value))}
                     placeholder="Ej. 75"
                     required
-                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
+                    className="text-black mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
                   />
                 </div>
 
@@ -160,7 +160,7 @@ export default function ModalDialogs() {
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setCategoria(e.target.value)}
                     placeholder="Ej. novela"
                     required
-                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
+                    className="text-black mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-regal-espalibros"
                   />
                 </div>
 
