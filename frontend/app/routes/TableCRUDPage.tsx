@@ -2,8 +2,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { getToken } from '../utils/auth'
-import { Button } from '../components/button'
-import { PlusIcon } from '@heroicons/react/16/solid'
 import { Badge } from '~/components/badge'
 
 interface Libro {

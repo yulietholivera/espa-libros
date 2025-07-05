@@ -4,6 +4,8 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/24/outline'
+import { Button } from '../components/button'
+import { PlusIcon } from '@heroicons/react/16/solid'
 
 const API = import.meta.env.VITE_API_URL
 
@@ -36,7 +38,7 @@ export default function ModalDialogs() {
         const res = await fetch(`${API}/libros`, {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
             },
             body: formData,
         })
@@ -64,9 +66,10 @@ export default function ModalDialogs() {
                 onClick={() => setOpen(true)}
                 className="ml-auto flex items-center gap-x-1 rounded-md bg-regal-espalibros px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-regal-espalibros/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-                <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                <PlusIcon className="h-5 w-5" aria-hidden="true" />
                 Agregar libro
             </button>
+            
 
             <Dialog open={open} onClose={setOpen} className="relative z-10">
                 <DialogBackdrop
