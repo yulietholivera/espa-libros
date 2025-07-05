@@ -17,13 +17,6 @@ export function BookModalTrigger({ onClick }: BookModalTriggerProps) {
                 <PlusIcon className="h-5 w-5" aria-hidden="true" />
                 Agregar libro
             </button>
-            {/* <button
-                onClick={() => setOpen(true)}
-                
-            >
-                <PlusIcon className="h-5 w-5" aria-hidden="true" />
-                Agregar libro
-            </button> */}
         </>
 
     )

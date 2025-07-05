@@ -18,7 +18,7 @@ Este repositorio contiene el desarrollo de la aplicación web **ESPA LIBROS**, q
 | Componentes React & React Router                                  | 8 de mayo de 2025   | 25 de junio de 2025 | Finalizado |                     |
 | Modelo de datos y migraciones BD                                  | 18 de abril de 2025 | 20 de junio de 2025 | Finalizado |                     |
 | Tercera revisión (hito)                                           | -                   | 5 de julio de 2025  | -          | Hito 3              |
-| Desarrollo Backend (endpoints CRUD, auth, pagos)                  | 10 de mayo de 2025  | 30 de junio de 2025 | Finalizado |                     |
+| Desarrollo Backend (endpoints CRUD, auth, pagos)                  | 10 de mayo de 2025  | 18 de julio de 2025 | Finalizado |                     |
 | Integración Front-Back & pruebas unitarias                        | 15 de mayo de 2025  | 1 de agosto de 2025 | Finalizado |                     |
 | Testing end-to-end y QA                                           | 1 de julio de 2025  | 2 de agosto de 2025 | Finalizado |                     |
 | Despliegue (Vercel, CI/CD)                                        | 28 de julio de 2025 | 2 de agosto de 2025 | Finalizado |                     |
