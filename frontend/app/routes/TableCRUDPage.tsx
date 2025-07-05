@@ -2,6 +2,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { getToken } from '../utils/auth'
+import { Button } from '../components/button'
+import { PlusIcon } from '@heroicons/react/16/solid'
+import { Badge } from '~/components/badge'
 
 interface Libro {
     _id: string
@@ -120,9 +123,9 @@ export default function TableCRUDPage() {
                                     <div className="absolute bottom-0 left-0 h-px w-screen bg-gray-100" />
                                 </td>
                                 <td className="hidden py-5 pr-6 sm:table-cell">
-                                    <div className="text-sm text-gray-900">Reform</div>
+                                    <div className="text-sm text-gray-900"></div>
                                     <div className="mt-1 text-xs text-gray-500">
-                                        Website redesign
+                                        
                                     </div>
                                 </td>
                                 <td className="py-5 text-right">
@@ -130,34 +133,19 @@ export default function TableCRUDPage() {
                                         <a
                                             href="#"
                                             className="text-sm font-medium text-regal-espalibros hover:text-gray-500"
-                                        >
-                                            Editar
-                                            <span className="hidden sm:inline"> libro</span>
+                                        >                                           
+                                            <Badge color="blue">Editar libro</Badge>
+                                            {/* <span className="hidden sm:inline"> libro</span> */}
                                             {/* <span className="sr-only">, invoice #00012, Reform</span> */}
-                                        </a>
+                                        </a>                                         
                                     </div>
-                                    <div className="flex justify-end">
-                                        <a
+                                    <div className="flex justify-end mt-3">
+                                         <a
                                             href="#"
                                             className="text-sm font-medium text-regal-espalibros hover:text-gray-500"
                                         >
-                                            Eliminar
-                                            <span className="hidden sm:inline"> </span>
-                                            {/* <span className="sr-only">, invoice #00012, Reform</span> */}
-                                        </a>
-                                    </div>
-                                    <div className="mt-1 text-xs text-gray-500">
-                                        Invoice <span className="text-gray-900">#00012</span>
-                                    </div>
-                                    <div className="flex justify-end">
-                                        <a
-                                            href="#"
-                                            className="text-sm font-medium text-regal-espalibros hover:text-gray-500"
-                                        >
-                                            Eliminar
-                                            <span className="hidden sm:inline"> </span>
-                                            {/* <span className="sr-only">, invoice #00012, Reform</span> */}
-                                        </a>
+                                            <Badge color="rose">Eliminar</Badge>                                           
+                                        </a>                                        
                                     </div>
                                 </td>
                             </tr>
