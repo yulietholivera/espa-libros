@@ -133,11 +133,31 @@ export default function TableCRUDPage() {
                                         >
                                             Editar
                                             <span className="hidden sm:inline"> libro</span>
-                                            <span className="sr-only">, invoice #00012, Reform</span>
+                                            {/* <span className="sr-only">, invoice #00012, Reform</span> */}
+                                        </a>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <a
+                                            href="#"
+                                            className="text-sm font-medium text-regal-espalibros hover:text-gray-500"
+                                        >
+                                            Eliminar
+                                            <span className="hidden sm:inline"> </span>
+                                            {/* <span className="sr-only">, invoice #00012, Reform</span> */}
                                         </a>
                                     </div>
                                     <div className="mt-1 text-xs text-gray-500">
                                         Invoice <span className="text-gray-900">#00012</span>
+                                    </div>
+                                    <div className="flex justify-end">
+                                        <a
+                                            href="#"
+                                            className="text-sm font-medium text-regal-espalibros hover:text-gray-500"
+                                        >
+                                            Eliminar
+                                            <span className="hidden sm:inline"> </span>
+                                            {/* <span className="sr-only">, invoice #00012, Reform</span> */}
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
