@@ -1,7 +1,7 @@
 // /webapps/espa-libros/frontend/app/components/crud/PanelHeader.tsx
 import React from 'react'
 // import { AddBookButton } from './AddBookButton'
-import ModalDialogs from '~/routes/ModalDialogs'
+
 import Logo from '../../assets/logo.svg'
 import BookModal from './BookModal/BookModal'
 

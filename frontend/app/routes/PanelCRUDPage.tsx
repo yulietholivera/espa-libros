@@ -1,6 +1,6 @@
 // /webapps/espa-libros/frontend/app/routes/PanelCRUDPage.tsx
 import { PanelHeader } from '~/components/crud/PanelHeader';
-import ModalDialogs from './ModalDialogs';
+
 import TableCRUDPage from './TableCRUDPage';
 export function meta(): Array<{ title: string }> {
     return [{ title: "Iniciar sesión" }];
