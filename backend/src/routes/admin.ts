@@ -36,9 +36,9 @@ router.use(authMiddleware, adminMiddleware);
 
 // --- Gestión de libros ---
 router.get('/libros', listarLibros);
-// Ahora usamos multer para manejar el file upload en 'imagenURL'
-router.post('/libros', upload.single('imagenURL'), crearLibro);
-router.put('/libros/:id', actualizarLibro);
+// Multer maneja fichero en 'imagenPortada' tanto en POST como en PUT
+router.post('/libros', upload.single('imagenPortada'), crearLibro);
+router.put('/libros/:id', upload.single('imagenPortada'), actualizarLibro);
 router.delete('/libros/:id', eliminarLibro);
 
 // --- Gestión de pedidos (métricas) ---

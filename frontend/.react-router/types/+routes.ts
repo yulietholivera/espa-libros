@@ -19,8 +19,10 @@ type Pages = {
   "/checkout": {
     params: {};
   };
-  "/detalle-libro": {
-    params: {};
+  "/libros/:id": {
+    params: {
+      "id": string;
+    };
   };
   "/panel-crud": {
     params: {};
@@ -36,7 +38,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/login" | "/checkout" | "/detalle-libro" | "/panel-crud" | "/registrar" | "/carrito";
+    page: "/" | "/login" | "/checkout" | "/libros/:id" | "/panel-crud" | "/registrar" | "/carrito";
   };
   "routes/HomePage.tsx": {
     id: "routes/HomePage";
@@ -52,7 +54,7 @@ type RouteFiles = {
   };
   "routes/BookDetailPage.tsx": {
     id: "routes/BookDetailPage";
-    page: "/detalle-libro";
+    page: "/libros/:id";
   };
   "routes/PanelCRUDPage.tsx": {
     id: "routes/PanelCRUDPage";

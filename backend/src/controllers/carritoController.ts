@@ -2,7 +2,7 @@
 
 import { Request, Response } from 'express';
 import { Carrito, ICarrito } from '../models/Carrito';
-import { Libro } from '../models/Libro';
+import Libro from '../models/Libro';
 
 export const obtenerCarrito = async (req: Request, res: Response) => {
   const usuarioId = req.user!.id;

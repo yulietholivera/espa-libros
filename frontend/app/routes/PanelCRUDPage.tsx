@@ -1,12 +1,32 @@
-// /webapps/espa-libros/frontend/app/routes/PanelCRUDPage.tsx
+// frontend/app/routes/PanelCRUDPage.tsx
 import { PanelHeader } from '~/components/crud/PanelHeader';
+import TableCRUDPage from './crud/TableCRUDPage';
 
-import TableCRUDPage from './TableCRUDPage';
+
+
+import { useFetchLibros } from '~/components/crud/TableCRUD/useFetchLibros'
+import { LibrosTable } from '~/components/crud/TableCRUD/LibrosTable'
+import { TableLoading } from '~/components/crud/TableCRUD/TableLoading'
+import { TableError } from '~/components/crud/TableCRUD/TableError'
+
+// import TableCRUDPage from './TableCRUDPage';
 export function meta(): Array<{ title: string }> {
     return [{ title: "Iniciar sesión" }];
 }
 
 export default function PanelCRUDPage() {
+    const { libros, loading, error, refresh } = useFetchLibros({ admin: true })
+    const handleDelete = async (id: string) => {
+        if (!confirm('¿Seguro que quieres eliminar este libro?')) return
+        const token = localStorage.getItem('token')
+        const base = import.meta.env.VITE_API_URL.replace(/\/$/, '')
+        const res = await fetch(`${base}/admin/libros/${id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        if (res.ok) refresh()
+    }
     return (
 
         <div className="bg-regal2-espalibros">
@@ -16,7 +36,7 @@ export default function PanelCRUDPage() {
                 <main>
                     <div className="relative isolate overflow-hidden ">
 
-                        <PanelHeader />
+                        <PanelHeader onAdd={refresh} />
 
 
                         <div className="bg-[#EAEAEA] border-b border-b-gray-900/10 lg:border-t lg:border-t-gray-900/5">
@@ -74,9 +94,13 @@ export default function PanelCRUDPage() {
                             <div className="mt-6 overflow-hidden border-t border-gray-100">
                                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                                     <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                                        
-
-                                        <TableCRUDPage />
+                                        {loading && <TableLoading />}
+                                        {error && <TableError message={error} />}
+                                        <LibrosTable
+                                            libros={libros}
+                                            onDelete={handleDelete}
+                                            onRefresh={refresh}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +131,7 @@ export default function PanelCRUDPage() {
                                                 <span className="sr-only">Previous</span>
                                                 <svg className="size-5 text-gray-900" viewBox="0 0 20 20" fill="currentColor"
                                                     aria-hidden="true" data-slot="icon">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
                                                         clip-rule="evenodd" />
                                                 </svg>
@@ -132,7 +156,7 @@ export default function PanelCRUDPage() {
                                                 <span className="sr-only">Next</span>
                                                 <svg className="size-5 text-gray-900" viewBox="0 0 20 20" fill="currentColor"
                                                     aria-hidden="true" data-slot="icon">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
                                                         clip-rule="evenodd" />
                                                 </svg>

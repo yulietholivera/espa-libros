@@ -1,17 +1,15 @@
-// /webapps/espa-libros/backend/src/controllers/libroController.ts
+// backend/src/controllers/libroController.ts
 import { Request, Response } from 'express';
-import { Libro, ILibro } from '../models/Libro';
+import Libro, { ILibro } from '../models/Libro'; // <-- CORRECCIÓN: Importación por defecto
 
 // Listar todos los libros (paginado opcionalmente)
 export const listarLibros = async (req: Request, res: Response) => {
   try {
-    const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 20;
-    const skip = (page - 1) * limit;
+    // Busca todos los libros sin skip ni limit
+    const libros: ILibro[] = await Libro.find();
+    const total: number = libros.length;
 
-    const libros = await Libro.find().skip(skip).limit(limit);
-    const total = await Libro.countDocuments();
-
+    // Devuelve array completo y total
     return res.json({ libros, total });
   } catch (error) {
     console.error(error);
@@ -35,9 +33,10 @@ export const obtenerLibro = async (req: Request, res: Response) => {
 
 // Crear un libro (solo admin)
 export const crearLibro = async (req: Request, res: Response) => {
-  // Campos de texto
+  console.log('[crearLibro] req.body =', req.body);
+  console.log('[crearLibro] req.file  =', req.file);
+
   const { titulo, autor, descripcion, precio, stock, categoria } = req.body;
-  // La URL de la imagen según lo subido por Multer
   const imagenURL = req.file
     ? `/uploads/${req.file.filename}`
     : req.body.imagenURL; // fallback si envías solo URL
@@ -62,8 +61,19 @@ export const crearLibro = async (req: Request, res: Response) => {
 
 // Actualizar un libro (solo admin)
 export const actualizarLibro = async (req: Request, res: Response) => {
+  console.log('[actualizarLibro] req.params.id =', req.params.id);
+  console.log('[actualizarLibro] req.body      =', req.body);
+  console.log('[actualizarLibro] req.file      =', req.file);
+
   const { id } = req.params;
-  const updates = req.body;
+
+  // Empaquetamos los campos de texto
+  const updates: Partial<ILibro> = { ...req.body };
+
+  // Si vino archivo, actualizamos la URL
+  if (req.file) {
+    updates.imagenURL = `/uploads/${req.file.filename}`;
+  }
 
   try {
     const libroActualizado = await Libro.findByIdAndUpdate(id, updates, {

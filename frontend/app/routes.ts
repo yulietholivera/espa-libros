@@ -2,12 +2,12 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
-  index("routes/HomePage.tsx"),           // ruta “/”
-  route("/login", "routes/LoginPage.tsx"),       // ruta “/index”
-  route("/checkout", "routes/CheckoutPage.tsx"), // ruta “/checkout”
-  route("/detalle-libro", "routes/BookDetailPage.tsx"),
-  route("/panel-crud", "routes/PanelCRUDPage.tsx"),
-  route("/registrar", "routes/RegisterPage.tsx"),
-  route("/carrito", "routes/CartPage.tsx"),
-  // …más rutas según necesites
+  index("routes/HomePage.tsx"),
+  route("/login", "routes/LoginPage.tsx"),
+  route("/checkout", "routes/CheckoutPage.tsx"),
+  // 👇 CORRECCIÓN: Se añade `:id` para crear una ruta dinámica.
+  route("/libros/:id", "routes/BookDetailPage.tsx"), 
+  route("/panel-crud", "routes/PanelCRUDPage.tsx"),
+  route("/registrar", "routes/RegisterPage.tsx"),
+  route("/carrito", "routes/CartPage.tsx"),
 ] satisfies RouteConfig;

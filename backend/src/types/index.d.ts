@@ -1,4 +1,6 @@
+// backend/src/types/index.d.ts
 import { Document } from 'mongoose';
+import { IUsuario } from '../models/Usuario';
 
 declare global {
   namespace Express {
@@ -7,6 +9,7 @@ declare global {
         id: string;
         rol: 'cliente' | 'administrador';
       };
+      usuario?: IUsuario;
     }
   }
 }

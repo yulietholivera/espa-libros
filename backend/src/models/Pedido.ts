@@ -1,36 +1,27 @@
+// /backend/src/models/Pedido.ts
 import { Schema, model, Document, Types } from 'mongoose';
 
+// Interface para un item individual dentro del pedido
 interface IItemPedido {
-  libroId: Types.ObjectId;
+  libro: Types.ObjectId; // Cambiado de 'libroId' a 'libro' para mayor claridad en la referencia
   cantidad: number;
-  precioUnitario: number;
+  precio: number; // Cambiado de 'precioUnitario' para consistencia
 }
 
-interface IDireccionEnvio {
-  calle: string;
-  ciudad: string;
-  estado: string;
-  zip: string;
-  pais: string;
-}
-
+// Interface principal para el documento de Pedido
 export interface IPedido extends Document {
-  usuarioId: Types.ObjectId;
+  usuario: Types.ObjectId; // Cambiado de 'usuarioId' a 'usuario'
   items: IItemPedido[];
-  subtotal: number;
-  envio: number;
-  impuestos: number;
   total: number;
-  metodoEnvio: 'estandar' | 'express';
-  metodoPago: 'tarjeta' | 'paypal';
-  direccionEnvio: IDireccionEnvio;
-  estado: 'pendiente' | 'pagado' | 'enviado' | 'entregado' | 'cancelado';
+  estado: string; // Se cambia a String para aceptar los estados de Mercado Pago ('approved', 'rejected', etc.)
+  paymentId?: number; // ¡NUEVO Y CRUCIAL! Para guardar el ID de la transacción de Mercado Pago
   fechaCreacion: Date;
 }
 
+// Schema para los items, anidado dentro del pedido
 const ItemPedidoSchema = new Schema<IItemPedido>(
   {
-    libroId: {
+    libro: {
       type: Schema.Types.ObjectId,
       ref: 'Libro',
       required: true,
@@ -40,7 +31,7 @@ const ItemPedidoSchema = new Schema<IItemPedido>(
       required: true,
       min: 1,
     },
-    precioUnitario: {
+    precio: {
       type: Number,
       required: true,
     },
@@ -48,19 +39,9 @@ const ItemPedidoSchema = new Schema<IItemPedido>(
   { _id: false }
 );
 
-const DireccionEnvioSchema = new Schema<IDireccionEnvio>(
-  {
-    calle: { type: String, required: true },
-    ciudad: { type: String, required: true },
-    estado: { type: String, required: true },
-    zip: { type: String, required: true },
-    pais: { type: String, required: true },
-  },
-  { _id: false }
-);
-
+// Schema principal del Pedido
 const PedidoSchema = new Schema<IPedido>({
-  usuarioId: {
+  usuario: {
     type: Schema.Types.ObjectId,
     ref: 'Usuario',
     required: true,
@@ -69,40 +50,18 @@ const PedidoSchema = new Schema<IPedido>({
     type: [ItemPedidoSchema],
     required: true,
   },
-  subtotal: {
-    type: Number,
-    required: true,
-  },
-  envio: {
-    type: Number,
-    required: true,
-  },
-  impuestos: {
-    type: Number,
-    required: true,
-  },
   total: {
     type: Number,
     required: true,
   },
-  metodoEnvio: {
-    type: String,
-    enum: ['estandar', 'express'],
-    required: true,
-  },
-  metodoPago: {
-    type: String,
-    enum: ['tarjeta', 'paypal'],
-    required: true,
-  },
-  direccionEnvio: {
-    type: DireccionEnvioSchema,
-    required: true,
-  },
   estado: {
     type: String,
-    enum: ['pendiente', 'pagado', 'enviado', 'entregado', 'cancelado'],
-    default: 'pendiente',
+    default: 'pendiente', // El estado por defecto antes de procesar el pago
+  },
+  paymentId: {
+    type: Number,
+    index: true, // Es buena idea indexar este campo para buscar transacciones
+    sparse: true, // Esto permite que el campo no exista en todos los documentos (opcional)
   },
   fechaCreacion: {
     type: Date,
@@ -110,4 +69,5 @@ const PedidoSchema = new Schema<IPedido>({
   },
 });
 
-export const Pedido = model<IPedido>('Pedido', PedidoSchema);
+// Se exporta como default para que coincida con la importación en 'pagoController.ts'
+export default model<IPedido>('Pedido', PedidoSchema);

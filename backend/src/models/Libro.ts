@@ -1,3 +1,4 @@
+// backend/src/models/Libro.ts
 import { Schema, model, Document } from 'mongoose';
 
 export interface ILibro extends Document {
@@ -28,6 +29,7 @@ const LibroSchema = new Schema<ILibro>({
   stock: {
     type: Number,
     required: true,
+    default: 0, // Es bueno tener un valor por defecto
   },
   imagenURL: {
     type: String,
@@ -37,4 +39,5 @@ const LibroSchema = new Schema<ILibro>({
   },
 });
 
-export const Libro = model<ILibro>('Libro', LibroSchema);
+// Cambiado a export default para consistencia
+export default model<ILibro>('Libro', LibroSchema);
