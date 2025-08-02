@@ -47,6 +47,18 @@ export default function BookDetailPage() {
         fetchLibro();
     }, [id]); // Se ejecuta cada vez que el ID de la URL cambia
 
+    // --- LÓGICA CORREGIDA PARA LA IMAGEN ---
+    const srcImagen = (() => {
+        if (!libro?.imagenURL) {
+            return 'https://placehold.co/400x600/EAEAEA/363636?text=No+Imagen';
+        }
+        if (libro.imagenURL.startsWith('http')) {
+            return libro.imagenURL;
+        }
+        const apiUrlBase = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
+        return `${apiUrlBase}${libro.imagenURL}`;
+    })();
+
     if (loading) {
         return <LoadingSpinner />;
     }
@@ -71,17 +83,20 @@ export default function BookDetailPage() {
                 <div className="bg-white shadow-lg rounded-lg overflow-hidden">
                     <div className="md:flex">
                         <div className="md:w-1/3">
-                            <img 
-                                src={libro.imagenURL} 
-                                alt={libro.titulo} 
+                            <img
+                                src={srcImagen} // <-- USAMOS LA VARIABLE CORREGIDA
+                                alt={libro.titulo}
                                 className="w-full h-full object-cover"
+                                onError={(e) => {
+                                    e.currentTarget.src = 'https://placehold.co/400x600/EAEAEA/363636?text=Error';
+                                }}
                             />
                         </div>
                         <div className="p-8 md:w-2/3">
                             <h1 className="text-3xl font-bold text-gray-900">{libro.titulo}</h1>
                             <p className="mt-2 text-lg text-gray-600">{libro.autor}</p>
                             <p className="mt-4 text-2xl font-bold text-regal-espalibros">${libro.precio.toFixed(2)}</p>
-                            
+
                             <div className="mt-6">
                                 <h2 className="text-lg font-semibold">Descripción</h2>
                                 <p className="mt-2 text-gray-700">{libro.descripcion || "No hay descripción disponible."}</p>

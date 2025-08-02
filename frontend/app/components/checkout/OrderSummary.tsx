@@ -4,13 +4,28 @@ import { useCart } from '~/context/CartContext';
 
 // Un componente simple para mostrar cada item en el resumen
 function SummaryItem({ item }) {
+    // --- LÓGICA CORREGIDA PARA LA IMAGEN ---
+    // Obtenemos la URL base de la API desde las variables de entorno de Vite.
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    
+    // Construimos la URL completa y segura para la imagen.
+    const imagenSrc = item.imagenURL?.startsWith('http')
+        ? item.imagenURL
+        : item.imagenURL
+            ? `${API_URL}${item.imagenURL}`
+            : 'https://placehold.co/100x150/EAEAEA/363636?text=No+Imagen'; // Imagen por defecto
+
     return (
-        <li className="flex px-4 py-6 sm:px-6">
+        <li className="flex items-center px-4 py-6 sm:px-6">
             <div className="shrink-0">
                 <img
-                    src={item.imagenURL}
+                    src={imagenSrc} //  <-- Usamos la variable con la URL completa
                     alt={item.titulo}
-                    className="w-20 rounded-md"
+                    className="w-20 rounded-md object-cover h-28 bg-gray-100" // Estilos mejorados
+                    // Manejo de error si la imagen no carga
+                    onError={(e) => {
+                        e.currentTarget.src = 'https://placehold.co/100x150/EAEAEA/363636?text=Error';
+                    }}
                 />
             </div>
             <div className="ml-4 flex flex-1 flex-col">
@@ -26,9 +41,9 @@ function SummaryItem({ item }) {
     );
 }
 
-// Un componente para el desglose de precios
-function PriceBreakdown({ subtotal, shipping, taxes }) {
-    const total = subtotal + shipping + taxes;
+
+// Un componente para el desglose de precios (sin cambios)
+function PriceBreakdown({ subtotal, shipping, taxes, total }) {
     return (
         <dl className="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
             <div className="flex items-center justify-between">
@@ -51,14 +66,15 @@ function PriceBreakdown({ subtotal, shipping, taxes }) {
     );
 }
 
-
 export function OrderSummary() {
     const { cartItems, cartTotal } = useCart();
 
-    // Lógica de cálculo de envío e impuestos (debería coincidir con el backend)
+    // Lógica de cálculo (adaptada para usar el total del hook del carrito)
     const subtotal = cartTotal;
-    const shipping = subtotal > 0 ? 5.00 : 0; // Envío estándar de ejemplo
-    const taxes = subtotal * 0.19; // 19% IVA
+    // Estos cálculos deben coincidir con los de CheckoutPage.tsx
+    const shipping = subtotal > 0 ? 5.00 : 0;
+    const taxes = subtotal * 0.19;
+    const total = subtotal + shipping + taxes;
 
     return (
         <div className="mt-10 lg:mt-0">
@@ -74,8 +90,7 @@ export function OrderSummary() {
                         <p className="p-6 text-center text-gray-500">Tu carrito está vacío.</p>
                     )}
                 </ul>
-                <PriceBreakdown subtotal={subtotal} shipping={shipping} taxes={taxes} />
-                {/* El botón de confirmar se encuentra ahora dentro del formulario de Mercado Pago */}
+                <PriceBreakdown subtotal={subtotal} shipping={shipping} taxes={taxes} total={total}/>
             </div>
         </div>
     );

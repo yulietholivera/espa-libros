@@ -10,18 +10,30 @@ interface CartItemProps {
 export default function CartItem({ item }: CartItemProps) {
   const { removeFromCart } = useCart();
 
+  // --- LÓGICA CORREGIDA PARA LA IMAGEN ---
+  const srcImagen = (() => {
+    if (!item.imagenURL) {
+      return 'https://placehold.co/100x150/EAEAEA/363636?text=No+Imagen';
+    }
+    if (item.imagenURL.startsWith('http')) {
+      return item.imagenURL;
+    }
+    const apiUrlBase = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
+    return `${apiUrlBase}${item.imagenURL}`;
+  })();
+
   return (
     <li className="flex py-6">
       {/* Imagen */}
-      <div className="group relative mb-5">
-        <div className="w-24 h-36 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-          <img
-            // FIX: Use `item.imagenURL` which is the correct property name from your CartContext type.
-            src={item.imagenURL}
-            alt={item.titulo}
-            className="w-full h-full object-cover object-center"
-          />
-        </div>
+      <div className="w-24 h-36 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+        <img
+          src={srcImagen} // <-- USAMOS LA VARIABLE CORREGIDA
+          alt={item.titulo}
+          className="w-full h-full object-cover object-center"
+          onError={(e) => {
+            e.currentTarget.src = 'https://placehold.co/100x150/EAEAEA/363636?text=Error';
+          }}
+        />
       </div>
 
       {/* Detalles */}
@@ -40,7 +52,7 @@ export default function CartItem({ item }: CartItemProps) {
         </p>
 
         <div className="mt-4 flex flex-1 items-end justify-between">
-          <div>{/* This div is for spacing purposes */}</div>
+          <div>{/* Este div es para mantener el espaciado */}</div>
           <div className="flex">
             <button
               type="button"

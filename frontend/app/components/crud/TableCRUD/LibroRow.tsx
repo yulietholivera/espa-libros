@@ -14,39 +14,41 @@ export function LibroRow({
   onEdit = () => {},
   onDelete = () => {},
 }: LibroRowProps) {
-  // Determinar la URL correcta de la imagen
+  // --- LÓGICA CORREGIDA ---
+  // Esta lógica asegura que siempre se construya la URL completa para la imagen.
   const srcImagen = (() => {
-    if (!libro.imagenURL) return undefined
+    // Si no hay URL, podemos devolver una imagen genérica.
+    if (!libro.imagenURL) {
+      return 'https://placehold.co/100x150/EAEAEA/363636?text=No+Imagen'
+    }
+
+    // Si la URL ya es absoluta (empieza con http), la usamos directamente.
     if (libro.imagenURL.startsWith('http')) {
       return libro.imagenURL
     }
-    if (libro.imagenURL.startsWith('/uploads')) {
-      return libro.imagenURL
-    }
-    const base = import.meta.env.VITE_API_URL.replace(/\/$/, '')
-    return `${base}${libro.imagenURL}`
+
+    // Si es una ruta relativa (como /uploads/...), le añadimos la base de la API.
+    const apiUrlBase = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '')
+    return `${apiUrlBase}${libro.imagenURL}`
   })()
 
   return (
     <>
-      <tr className="text-sm text-gray-900">
-        <th
-          scope="colgroup"
-          colSpan={3}
-          className="relative isolate py-2 font-semibold"
-        >
-          <time dateTime={new Date().toISOString().split('T')[0]}>Hoy</time>
-          <div className="absolute inset-y-0 right-full -z-10 w-screen border-b border-gray-200 bg-gray-50" />
-          <div className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-gray-200 bg-gray-50" />
-        </th>
-      </tr>
+      {/* Se ha eliminado la fila de cabecera de fecha ("Hoy") para un diseño más limpio */}
       <tr>
         <td className="relative py-5 pr-6">
           <div className="flex gap-x-6">
             <div className="shrink-0">
-              {srcImagen && (
-                <img src={srcImagen} alt={libro.titulo} className="w-25" />
-              )}
+              {/* Usamos la variable `srcImagen` corregida y añadimos estilos y un fallback */}
+              <img
+                src={srcImagen}
+                alt={libro.titulo}
+                className="w-24 h-36 object-cover rounded-md bg-gray-50" // Tamaño y estilo mejorados
+                onError={(e) => {
+                  // Si la imagen falla, muestra una genérica.
+                  e.currentTarget.src = 'https://placehold.co/100x150/EAEAEA/363636?text=Error'
+                }}
+              />
             </div>
             <div className="flex-auto">
               <div className="flex items-start gap-x-3">
@@ -55,7 +57,7 @@ export function LibroRow({
                 </div>
               </div>
               {libro.descripcion && (
-                <p className="mt-3 text-sm text-gray-500">{libro.descripcion}</p>
+                <p className="mt-3 text-sm text-gray-500 line-clamp-2">{libro.descripcion}</p>
               )}
               <div className="mt-1 text-xs/5 text-gray-500">
                 <span className="font-semibold">Autor:</span>{' '}
@@ -79,7 +81,7 @@ export function LibroRow({
         </td>
 
         <td className="hidden py-5 pr-6 sm:table-cell">
-          {/* Espacio reservado */}
+          {/* Espacio reservado para futuras columnas si es necesario */}
         </td>
 
         <td className="py-5 text-right">
@@ -93,4 +95,3 @@ export function LibroRow({
     </>
   )
 }
-
