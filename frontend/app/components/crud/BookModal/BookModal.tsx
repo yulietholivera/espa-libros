@@ -1,7 +1,7 @@
 // frontend/app/components/crud/BookModal/BookModal.tsx
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { BookModalTrigger } from './BookModalTrigger'
 import { BookForm } from './BookForm'

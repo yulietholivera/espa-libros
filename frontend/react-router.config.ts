@@ -1,7 +1,10 @@
+// frontend/react-router.config.ts
 import type { Config } from "@react-router/dev/config";
 
 export default {
-  // Config options...
-  // Server-side render by default, to enable SPA mode set this to `false`
+  // Le indicamos explícitamente el directorio de salida
+  buildDirectory: "build/client",
+
+  // Mantenemos tu configuración de SPA
   ssr: false,
 } satisfies Config;

@@ -2,26 +2,31 @@
 import React, { useMemo } from 'react';
 import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
 
-// Asegúrate de que tu clave pública esté en el archivo .env del frontend
-// La inicialización debe ocurrir solo una vez.
 if (import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY) {
     initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY, {
-        locale: 'es-CO' // Opcional: Forzar el idioma a español de Colombia
+        locale: 'es-CO'
     });
 }
 
 interface MercadoPagoFormProps {
     totalAmount: number;
     onSubmitPayment: (formData: any) => Promise<void>;
+    payer: { // 👈 1. Aceptamos el objeto payer como prop
+        email: string;
+    };
 }
 
-export function MercadoPagoForm({ totalAmount, onSubmitPayment }: MercadoPagoFormProps) {
-    // El objeto de inicialización solo debe contener el monto.
+export function MercadoPagoForm({ totalAmount, onSubmitPayment, payer }: MercadoPagoFormProps) {
+    
+    // ✅ 2. Añadimos el objeto 'payer' a la inicialización.
+    // Esto le dice al Brick quién es el pagador desde el principio.
     const initialization = useMemo(() => ({
         amount: totalAmount,
-    }), [totalAmount]);
+        payer: {
+            email: payer.email,
+        },
+    }), [totalAmount, payer.email]);
 
-    // La configuración de los métodos de pago va dentro de 'customization'.
     const customization = useMemo(() => ({
         paymentMethods: {
             creditCard: "all",
@@ -31,15 +36,16 @@ export function MercadoPagoForm({ totalAmount, onSubmitPayment }: MercadoPagoFor
             style: {
                 theme: 'bootstrap',
             },
+            // Ahora que el Brick conoce al pagador, respetará esta instrucción.
+            hideEmail: true, 
         },
-    }), []); // Este objeto no depende de props, por lo que solo se crea una vez.
+    }), []);
 
     const handleBrickError = (error: any) => {
         console.error("Error en el Payment Brick de Mercado Pago:", error);
         console.error("Objeto de inicialización que falló:", JSON.stringify(initialization, null, 2));
     };
 
-    // No renderizar el Brick si el monto no es válido.
     if (!totalAmount || totalAmount <= 0) {
         return (
             <div className="p-4 text-center bg-gray-100 rounded-lg">
@@ -52,7 +58,7 @@ export function MercadoPagoForm({ totalAmount, onSubmitPayment }: MercadoPagoFor
         <div>
             <Payment
                 initialization={initialization}
-                customization={customization} // Pasamos el objeto de personalización corregido
+                customization={customization}
                 onSubmit={onSubmitPayment}
                 onError={handleBrickError}
             />

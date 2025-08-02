@@ -4,8 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { conectarDB } from './config/db';
-import { logMiddleware } from './middlewares/logMiddleware';
-import { recibirWebhook } from './controllers/pedidoController'; // <-- 1. Importa el webhook handler
+import logMiddleware from './middlewares/logMiddleware';
 
 // Rutas
 import authRoutes from './routes/auth';
@@ -24,30 +23,33 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// --- 2. IMPORTANTE: Usa express.json() ANTES de la ruta del webhook ---
 app.use(express.json());
-
-// --- 3. Define la ruta PÚBLICA para el webhook ANTES de las rutas autenticadas ---
-app.post('/api/pedidos/webhook', recibirWebhook);
-
-// Servir archivos subidos (Multer)
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-
-// Middleware de logging para debug
 app.use(logMiddleware);
 
 // Conexión a la base de datos
 conectarDB();
 
-// Rutas autenticadas y otras
+// --- Rutas de la API (TODAS deben tener el prefijo /api) ---
+// Vercel usará estas rutas para la función serverless del backend.
 app.use('/api/auth', authRoutes);
 app.use('/api/libros', libroRoutes);
 app.use('/api/carrito', carritoRoutes);
-app.use('/api/pedidos', pedidoRoutes); // <-- Este ya no contiene el webhook
+app.use('/api/pedidos', pedidoRoutes);
 app.use('/api/admin', adminRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-});
+// --- Servir archivos estáticos de 'uploads' ---
+// Esta ruta es correcta porque sirve archivos específicos (imágenes) bajo la ruta /api/
+app.use('/api/uploads', express.static(path.join(__dirname, '../uploads')));
 
+// --- Iniciar servidor SOLO para desarrollo local ---
+// El bloque `if (!process.env.VERCEL)` asegura que `app.listen`
+// no se ejecute en el entorno de Vercel, lo cual es la práctica correcta.
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo para desarrollo local en http://localhost:${PORT}`);
+  });
+}
+
+// Exportar la app para que Vercel la utilice como una función serverless
+export default app;

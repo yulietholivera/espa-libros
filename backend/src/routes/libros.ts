@@ -1,18 +1,16 @@
-// /webapps/espa-libros/backend/src/routes/libros.ts
-import { Router } from 'express';
+// backend/src/routes/libros.ts
+import { Router as LibrosRouter } from 'express';
 import { listarLibros, obtenerLibro, crearLibro, actualizarLibro, eliminarLibro } from '../controllers/libroController';
 import { authMiddleware } from '../middlewares/authMiddleware';
 import { adminMiddleware } from '../middlewares/adminMiddleware';
 import Joi from 'joi';
 import { validar } from '../middlewares/validationMiddleware';
 
-const router = Router();
+const librosRouter = LibrosRouter();
 
-// Rutas públicas
-router.get('/', listarLibros);
-router.get('/:id', obtenerLibro);
+librosRouter.get('/', listarLibros);
+librosRouter.get('/:id', obtenerLibro);
 
-// Rutas que requieren admin
 const schemaLibro = Joi.object({
   titulo: Joi.string().required(),
   autor: Joi.string().allow(''),
@@ -23,8 +21,8 @@ const schemaLibro = Joi.object({
   categoria: Joi.string().allow(''),
 });
 
-router.post('/', authMiddleware, adminMiddleware, validar(schemaLibro), crearLibro);
-router.put('/:id', authMiddleware, adminMiddleware, actualizarLibro);
-router.delete('/:id', authMiddleware, adminMiddleware, eliminarLibro);
+librosRouter.post('/', authMiddleware, adminMiddleware, validar(schemaLibro), crearLibro);
+librosRouter.put('/:id', authMiddleware, adminMiddleware, actualizarLibro);
+librosRouter.delete('/:id', authMiddleware, adminMiddleware, eliminarLibro);
 
-export default router;
+export default librosRouter;

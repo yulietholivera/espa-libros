@@ -1,12 +1,17 @@
 // frontend/app/components/home/useLibros.ts
 import { useState, useEffect } from "react";
 
+// ✅ CORRECCIÓN: La interfaz ahora incluye todos los campos posibles del modelo del backend.
+// Los campos que pueden no estar presentes se marcan como opcionales con un '?'.
 export interface Libro {
   _id: string;
   titulo: string;
-  autor: string;
+  autor?: string;
+  descripcion?: string;
   precio: number;
-  imagenURL: string;
+  stock?: number;
+  imagenURL?: string;
+  categoria?: string;
 }
 
 interface UseLibrosResult {
@@ -23,14 +28,19 @@ export default function useLibros(): UseLibrosResult {
   useEffect(() => {
     async function fetchLibros() {
       setLoading(true);
+      setError(null); // Es buena práctica limpiar el error anterior al reintentar
       try {
         const res = await fetch("/api/libros");
-        if (!res.ok) throw new Error(`Error ${res.status}`);
+        if (!res.ok) {
+          throw new Error(`Error al contactar el servidor: ${res.status}`);
+        }
+        
         const data: { libros: Libro[]; total: number } = await res.json();
         setLibros(data.libros);
-      } catch (err) {
-        console.error(err);
-        setError("No se pudieron cargar los libros.");
+
+      } catch (err: any) {
+        console.error("Error en fetchLibros:", err);
+        setError(err.message || "No se pudieron cargar los libros.");
       } finally {
         setLoading(false);
       }

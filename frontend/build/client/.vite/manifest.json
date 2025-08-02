@@ -1,0 +1,142 @@
+{
+  "_CartContext-CTEwtsR9.js": {
+    "file": "assets/CartContext-CTEwtsR9.js",
+    "name": "CartContext",
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_auth-BPhwfanI.js"
+    ]
+  },
+  "_auth-BPhwfanI.js": {
+    "file": "assets/auth-BPhwfanI.js",
+    "name": "auth"
+  },
+  "_chunk-QMGIS6GS-ClXNqF_9.js": {
+    "file": "assets/chunk-QMGIS6GS-ClXNqF_9.js",
+    "name": "chunk-QMGIS6GS"
+  },
+  "_index-dgF3iov-.js": {
+    "file": "assets/index-dgF3iov-.js",
+    "name": "index",
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js"
+    ]
+  },
+  "_logo-D5a0bzcX.js": {
+    "file": "assets/logo-D5a0bzcX.js",
+    "name": "logo",
+    "assets": [
+      "assets/logo-BjDy0dvF.svg"
+    ]
+  },
+  "app/assets/logo.svg": {
+    "file": "assets/logo-BjDy0dvF.svg",
+    "src": "app/assets/logo.svg"
+  },
+  "app/root.tsx?__react-router-build-client-route": {
+    "file": "assets/root-BvQyu54D.js",
+    "name": "root",
+    "src": "app/root.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_CartContext-CTEwtsR9.js",
+      "_auth-BPhwfanI.js"
+    ],
+    "css": [
+      "assets/root-B38aQXpk.css"
+    ]
+  },
+  "app/routes/BookDetailPage.tsx?__react-router-build-client-route": {
+    "file": "assets/BookDetailPage-BCAdoyrr.js",
+    "name": "BookDetailPage",
+    "src": "app/routes/BookDetailPage.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_CartContext-CTEwtsR9.js",
+      "_logo-D5a0bzcX.js",
+      "_auth-BPhwfanI.js"
+    ]
+  },
+  "app/routes/CartPage.tsx?__react-router-build-client-route": {
+    "file": "assets/CartPage-Kq5KY88z.js",
+    "name": "CartPage",
+    "src": "app/routes/CartPage.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_logo-D5a0bzcX.js",
+      "_CartContext-CTEwtsR9.js",
+      "_auth-BPhwfanI.js"
+    ]
+  },
+  "app/routes/CheckoutPage.tsx?__react-router-build-client-route": {
+    "file": "assets/CheckoutPage-i-V9ZkOj.js",
+    "name": "CheckoutPage",
+    "src": "app/routes/CheckoutPage.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_logo-D5a0bzcX.js",
+      "_CartContext-CTEwtsR9.js",
+      "_auth-BPhwfanI.js"
+    ]
+  },
+  "app/routes/HomePage.tsx?__react-router-build-client-route": {
+    "file": "assets/HomePage-CwPBYrvQ.js",
+    "name": "HomePage",
+    "src": "app/routes/HomePage.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_logo-D5a0bzcX.js",
+      "_CartContext-CTEwtsR9.js",
+      "_auth-BPhwfanI.js"
+    ]
+  },
+  "app/routes/LoginPage.tsx?__react-router-build-client-route": {
+    "file": "assets/LoginPage-B-c5d_KC.js",
+    "name": "LoginPage",
+    "src": "app/routes/LoginPage.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_auth-BPhwfanI.js",
+      "_logo-D5a0bzcX.js"
+    ]
+  },
+  "app/routes/PanelCRUDPage.tsx?__react-router-build-client-route": {
+    "file": "assets/PanelCRUDPage-Ba0pULFj.js",
+    "name": "PanelCRUDPage",
+    "src": "app/routes/PanelCRUDPage.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_logo-D5a0bzcX.js",
+      "_index-dgF3iov-.js",
+      "_auth-BPhwfanI.js"
+    ]
+  },
+  "app/routes/RegisterPage.tsx?__react-router-build-client-route": {
+    "file": "assets/RegisterPage-pZuLxzZ8.js",
+    "name": "RegisterPage",
+    "src": "app/routes/RegisterPage.tsx?__react-router-build-client-route",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_auth-BPhwfanI.js",
+      "_logo-D5a0bzcX.js"
+    ]
+  },
+  "node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx": {
+    "file": "assets/entry.client-B4dSLHQc.js",
+    "name": "entry.client",
+    "src": "node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx",
+    "isEntry": true,
+    "imports": [
+      "_chunk-QMGIS6GS-ClXNqF_9.js",
+      "_index-dgF3iov-.js"
+    ]
+  }
+}

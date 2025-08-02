@@ -1,6 +1,5 @@
-// /webapps/espa-libros/backend/src/routes/carrito.ts
-
-import { Router } from 'express';
+// backend/src/routes/carrito.ts
+import { Router as ExpressRouter } from 'express'; // Renombrado para evitar conflicto de nombres
 import {
   obtenerCarrito,
   agregarAlCarrito,
@@ -12,76 +11,42 @@ import { authMiddleware } from '../middlewares/authMiddleware';
 import Joi from 'joi';
 import { validar } from '../middlewares/validationMiddleware';
 
-const router = Router();
+const carritoRouter = ExpressRouter();
 
-// Todas las rutas requieren autenticación de usuario (cliente o admin)
-router.use(authMiddleware);
+carritoRouter.use(authMiddleware);
 
-// Obtener carrito actual
-router.get('/', obtenerCarrito);
+carritoRouter.get('/', obtenerCarrito);
 
-// Agregar al carrito
 const schemaAgregar = Joi.object({
-  libroId: Joi.string()
-    .length(24)
-    .required()
-    .messages({
-      'any.required': '"libroId" es obligatorio.',
-      'string.base': '"libroId" debe ser un texto válido.',
-      'string.length': '"libroId" debe tener 24 caracteres (ID Mongo válido).',
-    }),
-  cantidad: Joi.number()
-    .min(1)
-    .required()
-    .messages({
-      'any.required': '"cantidad" es obligatoria.',
-      'number.base': '"cantidad" debe ser un número.',
-      'number.min': '"cantidad" debe ser al menos 1.',
-    }),
+  libroId: Joi.string().length(24).required().messages({
+    'any.required': '"libroId" es obligatorio.',
+    'string.base': '"libroId" debe ser un texto válido.',
+    'string.length': '"libroId" debe tener 24 caracteres (ID Mongo válido).',
+  }),
+  cantidad: Joi.number().min(1).required().messages({
+    'any.required': '"cantidad" es obligatoria.',
+    'number.base': '"cantidad" debe ser un número.',
+    'number.min': '"cantidad" debe ser al menos 1.',
+  }),
 });
-router.post('/', validar(schemaAgregar), agregarAlCarrito);
+carritoRouter.post('/', validar(schemaAgregar), agregarAlCarrito);
 
-// Actualizar cantidad de item
 const schemaActualizar = Joi.object({
-  libroId: Joi.string()
-    .length(24)
-    .required()
-    .messages({
-      'any.required': '"libroId" es obligatorio.',
-      'string.base': '"libroId" debe ser un texto válido.',
-      'string.length': '"libroId" debe tener 24 caracteres (ID Mongo válido).',
-    }),
-  cantidad: Joi.number()
-    .min(0)
-    .required()
-    .messages({
-      'any.required': '"cantidad" es obligatoria.',
-      'number.base': '"cantidad" debe ser un número.',
-      'number.min': '"cantidad" debe ser 0 o mayor.',
-    }),
+  libroId: Joi.string().length(24).required().messages({
+    'any.required': '"libroId" es obligatorio.',
+    'string.base': '"libroId" debe ser un texto válido.',
+    'string.length': '"libroId" debe tener 24 caracteres (ID Mongo válido).',
+  }),
+  cantidad: Joi.number().min(0).required().messages({
+    'any.required': '"cantidad" es obligatoria.',
+    'number.base': '"cantidad" debe ser un número.',
+    'number.min': '"cantidad" debe ser 0 o mayor.',
+  }),
 });
-router.put('/', validar(schemaActualizar), actualizarItemCarrito);
+carritoRouter.put('/', validar(schemaActualizar), actualizarItemCarrito);
 
-// Eliminar un item
-router.delete(
-  '/:libroId',
-  // Validar que el parámetro libroId esté presente y sea correcto
-  validar(
-    Joi.object({
-      libroId: Joi.string()
-        .length(24)
-        .required()
-        .messages({
-          'any.required': '"libroId" (en la URL) es obligatorio.',
-          'string.base': '"libroId" debe ser un texto válido.',
-          'string.length': '"libroId" debe tener 24 caracteres (ID Mongo válido).',
-        }),
-    }).options({ allowUnknown: true })
-  ),
-  eliminarItemCarrito
-);
+carritoRouter.delete('/:libroId', eliminarItemCarrito);
 
-// Vaciar carrito completo
-router.delete('/', vaciarCarrito);
+carritoRouter.delete('/', vaciarCarrito);
 
-export default router;
+export default carritoRouter;

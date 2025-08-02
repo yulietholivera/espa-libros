@@ -1,0 +1,1 @@
+function t(e){localStorage.setItem("token",e)}function a(){return localStorage.getItem("token")}function o(e){localStorage.setItem("usuario",JSON.stringify(e))}function n(){try{return JSON.parse(localStorage.getItem("usuario")||"null")}catch{return null}}export{o as a,a as b,n as g,t as s};

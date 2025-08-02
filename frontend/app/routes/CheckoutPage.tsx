@@ -8,9 +8,9 @@ import { DeliveryMethodSection } from '../components/checkout/DeliveryMethodSect
 import { OrderSummary } from '../components/checkout/OrderSummary';
 import { MercadoPagoForm } from '../components/checkout/MercadoPagoForm';
 import { useCart } from '../context/CartContext';
-import { getToken } from '../utils/auth';
+import { getToken, getUser } from '../utils/auth';
 
-// Componente reutilizable para campos de formulario
+// Componente FormField (sin cambios)
 function FormField({ id, label, type = 'text', value, onChange, required = true }) {
     return (
         <div>
@@ -32,6 +32,7 @@ function FormField({ id, label, type = 'text', value, onChange, required = true 
     );
 }
 
+
 export function meta(): Array<{ title: string }> {
     return [{ title: "Finalizar Compra" }];
 }
@@ -39,27 +40,22 @@ export function meta(): Array<{ title: string }> {
 export default function CheckoutPage() {
     const { cartTotal, clearCart } = useCart();
     const navigate = useNavigate();
-
     const [metodoEnvio, setMetodoEnvio] = useState('estandar');
     const [direccionEnvio, setDireccionEnvio] = useState({
-        calle: '',
-        ciudad: '',
-        estado: '',
-        zip: '',
-        pais: 'Colombia',
+        calle: '', ciudad: '', estado: '', zip: '', pais: 'Colombia',
     });
     const [error, setError] = useState<string | null>(null);
     const [isProcessing, setIsProcessing] = useState(false);
     const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
+    // ✅ 1. Obtenemos los datos del usuario una sola vez.
+    const usuario = useMemo(() => getUser(), []);
+
+    // Autocompletar datos en desarrollo (sin cambios)
     useEffect(() => {
         if (import.meta.env.DEV) {
             setDireccionEnvio({
-                calle: 'Calle Falsa 123',
-                ciudad: 'Bogotá',
-                estado: 'Cundinamarca',
-                zip: '110111',
-                pais: 'Colombia',
+                calle: 'Calle Falsa 123', ciudad: 'Bogotá', estado: 'Cundinamarca', zip: '110111', pais: 'Colombia',
             });
         }
     }, []);
@@ -89,61 +85,39 @@ export default function CheckoutPage() {
         }
 
         const token = getToken();
-        if (!token) {
+        if (!token || !usuario) {
             setError("Debes iniciar sesión para completar la compra.");
             setIsProcessing(false);
             setTimeout(() => navigate('/login'), 2000);
             return;
         }
 
-        // --- 👇 CORRECCIÓN CLAVE ---
-        // Extraemos los datos del objeto anidado 'formData' que nos da Mercado Pago
-        const { token: paymentToken, payment_method_id, installments, payer } = mercadoPagoData.formData;
+        const { token: paymentToken, payment_method_id, installments } = mercadoPagoData.formData;
 
-        // Construimos el objeto plano que el backend espera
         const datosCompletosDelPedido = {
             token: paymentToken,
             payment_method_id,
             installments,
-            payer: payer, // Se envía el objeto payer tal como lo devuelve Mercado Pago
+            payer: { email: usuario.email }, // El backend ya usa el email del token, pero lo enviamos por consistencia.
             metodoEnvio,
             direccionEnvio,
         };
         
-        console.log('✅ [Checkout] Enviando al backend:', JSON.stringify(datosCompletosDelPedido, null, 2));
-
         try {
-            const response = await axios.post('/api/pedidos/checkout', datosCompletosDelPedido, {
+            await axios.post('/api/pedidos/checkout', datosCompletosDelPedido, {
                 headers: { 'Authorization': `Bearer ${token}` },
             });
-            console.log('¡Compra realizada con éxito!', response.data);
             setIsPaymentSuccessful(true);
             clearCart();
         } catch (err: any) {
             const errorMessage = err.response?.data?.mensaje || 'Hubo un error al procesar tu pago.';
-            console.error('Error al procesar el pago:', err);
-            console.error('❌ Error desde el backend:', err.response?.data);
             setError(errorMessage);
         } finally {
             setIsProcessing(false);
         }
     };
 
-    // --- LOGS DE DEPURACIÓN ---
-    useEffect(() => {
-        if (import.meta.env.DEV) {
-            console.log('--- DEBUG CÁLCULO DE TOTALES (FRONTEND) ---');
-            console.log(`Subtotal (desde el carrito): $${cartTotal.toFixed(2)}`);
-            const shippingCost = metodoEnvio === 'express' ? 16.00 : 5.00;
-            console.log(`Costo de Envío (${metodoEnvio}): $${shippingCost.toFixed(2)}`);
-            const taxes = cartTotal * 0.19;
-            console.log(`Impuestos (19%): $${taxes.toFixed(2)}`);
-            console.log(`TOTAL FINAL A PAGAR: $${finalTotal.toFixed(2)}`);
-            console.log('-------------------------------------------');
-        }
-    }, [cartTotal, metodoEnvio, finalTotal]);
-    // --- FIN DE LOGS ---
-
+    // ... (El resto del componente, incluido el JSX, no necesita cambios)
     if (isPaymentSuccessful) {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center p-4">
@@ -184,6 +158,8 @@ export default function CheckoutPage() {
                                 <MercadoPagoForm
                                     totalAmount={finalTotal}
                                     onSubmitPayment={handleSubmitPayment}
+                                    // ✅ 2. Pasamos el objeto payer al componente del formulario
+                                    payer={{ email: usuario?.email || '' }}
                                 />
                             ) : (
                                 <p className="text-gray-500 mt-4">Agrega productos a tu carrito para poder pagar.</p>

@@ -1,9 +1,8 @@
-// /webapps/espa-libros/frontend/app/routes/IndexPage.tsx
-
+// frontend/app/routes/LoginPage.tsx
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { useNavigate } from "react-router";
-import { Link } from "react-router";
+// El hook 'useNavigate' ya no es necesario para la redirección principal
+import { Link, useNavigate } from "react-router";
 import { saveToken, saveUser } from "../utils/auth"
 import Logo from './../assets/logo.svg';
 
@@ -12,12 +11,17 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    
+    // Aunque usamos window.location para la redirección principal,
+    // mantenemos navigate por si se necesita para otras lógicas en el futuro.
     const navigate = useNavigate();
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
+
+        console.log(`💡 [Login] Intentando iniciar sesión con email: ${email}`);
 
         try {
             const res = await fetch("/api/auth/login", {
@@ -26,16 +30,25 @@ export default function LoginPage() {
                 body: JSON.stringify({ email, password }),
             });
             const body = await res.json();
+
+            console.log("✅ [Login] Respuesta completa del backend:", body);
+
             if (!res.ok) {
                 throw new Error(body.mensaje || "Error al iniciar sesión");
             }
+            
             // Guarda el token y los datos de usuario
             saveToken(body.token)
             saveUser(body.usuario)
-            // Redirige al home (o a donde prefieras)
-            navigate("/");
+
+            console.log("✅ [Login] Token guardado en localStorage:", localStorage.getItem('token'));
+
+            // ✅ CORRECCIÓN APLICADA AQUÍ
+            // Redirige al home forzando una recarga completa para limpiar el estado.
+            window.location.href = "/";
+
         } catch (err: any) {
-            console.error(err);
+            console.error("❌ [Login] Error en el handleSubmit:", err);
             setError(err.message);
         } finally {
             setLoading(false);
@@ -47,11 +60,11 @@ export default function LoginPage() {
             <div className="bg-regal2-espalibros pb-96 pt-24">
                 <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
                     
-                        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                            <Link to="/">
-                                <img src={Logo} alt="Espa-Libros Logo" />
-                            </Link>
-                        </div>
+                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                        <Link to="/">
+                            <img src={Logo} alt="Espa-Libros Logo" />
+                        </Link>
+                    </div>
                     
                     <div className="mt-3 sm:mx-auto sm:w-full sm:max-w-sm">
                         <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
@@ -117,12 +130,13 @@ export default function LoginPage() {
                                 </button>
                             </div>
                         </form>
-                        <Link to="/registrar">
-                            <div href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                O Resitrate
-                            </div>
-
-                        </Link>
+                        
+                        <p className="mt-6 text-center text-sm text-gray-500">
+                            ¿No eres miembro?{' '}
+                            <Link to="/registrar" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                Regístrate aquí
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </div>

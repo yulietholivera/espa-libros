@@ -1,5 +1,5 @@
+// frontend/app/routes/crud/TableCRUDPage.tsx
 'use client'
-import React from 'react'
 import { useFetchLibros } from '~/components/crud/TableCRUD/useFetchLibros'
 import { LibrosTable } from '~/components/crud/TableCRUD/LibrosTable'
 import { TableLoading } from '~/components/crud/TableCRUD/TableLoading'

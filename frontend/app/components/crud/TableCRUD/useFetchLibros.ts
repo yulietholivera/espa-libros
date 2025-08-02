@@ -20,11 +20,6 @@ interface UseFetchLibrosResult {
   refresh: () => void
 }
 
-/**
- * useFetchLibros({ admin: true })
- * - admin=false → GET /api/libros       (público)
- * - admin=true  → GET /api/admin/libros (protegido)
- */
 export function useFetchLibros(options: { admin?: boolean } = {}): UseFetchLibrosResult {
   const { admin = false } = options
   const [libros, setLibros] = useState<Libro[]>([])
@@ -35,31 +30,31 @@ export function useFetchLibros(options: { admin?: boolean } = {}): UseFetchLibro
     setLoading(true)
     setError(null)
 
-    const base = import.meta.env.VITE_API_URL.replace(/\/$/, '')
-    const endpoint = admin
-      ? `${base}/admin/libros`
-      : `${base}/libros`
+    // ✅ CORRECCIÓN: Se construye la ruta relativa con el prefijo /api
+    const endpoint = admin ? '/api/admin/libros' : '/api/libros';
 
     console.log('[useFetchLibros] llamando a', endpoint)
 
     try {
       const res = await fetch(endpoint, {
-        credentials: admin ? 'include' : undefined,
         headers: {
           'Content-Type': 'application/json',
+          // El token solo se añade si es una ruta de admin
           ...(admin && getToken() ? { Authorization: `Bearer ${getToken()}` } : {}),
         },
       })
 
       if (!res.ok) {
-        throw new Error(`Error ${res.status}`)
+        // Lanza un error con el status para dar más contexto
+        throw new Error(`Error al contactar el servidor: ${res.status}`);
       }
 
       const data = await res.json()
+      // La data puede venir como un array o como un objeto { libros: [...] }
       setLibros(Array.isArray(data) ? data : data.libros ?? [])
     } catch (err: any) {
       console.error('[useFetchLibros] error', err)
-      setError('No se pudieron cargar los libros')
+      setError(err.message || 'No se pudieron cargar los libros');
     } finally {
       setLoading(false)
     }
@@ -71,4 +66,3 @@ export function useFetchLibros(options: { admin?: boolean } = {}): UseFetchLibro
 
   return { libros, loading, error, refresh: fetchLibros }
 }
-

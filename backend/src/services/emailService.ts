@@ -2,15 +2,14 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { IPedido } from '../models/Pedido'; // Importar la interfaz del pedido
+import { IUsuario } from '../models/Usuario'; // Importar la interfaz de Usuario
 
 dotenv.config();
 
 // Configuración del transporter usando variables de entorno
-// NOTA: Estos son datos de ejemplo para Mailtrap.io. Debes crear tu propia cuenta
-// y reemplazar estos valores en tu archivo .env
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST, // ej: "sandbox.smtp.mailtrap.io"
-  port: Number(process.env.EMAIL_PORT), // ej: 2525
+  host: process.env.EMAIL_HOST,
+  port: Number(process.env.EMAIL_PORT),
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -28,13 +27,17 @@ export const enviarConfirmacionPedido = async (pedido: IPedido): Promise<void> =
     return;
   }
 
+  // ✅ CORRECCIÓN: Se realiza una doble conversión para asegurar el tipo a TypeScript.
+  const usuario = pedido.usuario as unknown as IUsuario;
+
   // Generar el HTML para la lista de items
   const itemsHtml = pedido.items.map(item => {
     // Asegurarnos de que 'libro' es un objeto poblado
     if (typeof item.libro === 'object' && item.libro !== null && 'titulo' in item.libro) {
+      const libro = item.libro as { titulo: string };
       return `
         <tr>
-          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${item.libro.titulo}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${libro.titulo}</td>
           <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">${item.cantidad}</td>
           <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: right;">$${item.precio.toFixed(2)}</td>
         </tr>
@@ -47,7 +50,7 @@ export const enviarConfirmacionPedido = async (pedido: IPedido): Promise<void> =
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; color: #333;">
       <h1 style="color: #0056b3;">¡Gracias por tu compra en Espa-Libros!</h1>
-      <p>Hola ${pedido.usuario.nombre},</p>
+      <p>Hola ${usuario.nombre},</p>
       <p>Hemos recibido tu pedido #${pedido._id}. Aquí tienes los detalles:</p>
       <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <thead>
@@ -70,11 +73,11 @@ export const enviarConfirmacionPedido = async (pedido: IPedido): Promise<void> =
   try {
     await transporter.sendMail({
       from: `"Espa-Libros" <no-reply@espalibros.com>`,
-      to: pedido.usuario.email,
+      to: usuario.email,
       subject: `Confirmación de tu Pedido #${pedido._id}`,
       html: htmlContent,
     });
-    console.log('Correo de confirmación enviado a', pedido.usuario.email);
+    console.log('Correo de confirmación enviado a', usuario.email);
   } catch (error) {
     console.error('Error enviando correo de confirmación:', error);
   }
